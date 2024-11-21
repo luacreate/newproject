@@ -54,12 +54,21 @@
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
+            position: relative;
         }
 
         .multiplier {
             font-size: 2em;
             font-weight: bold;
             color: #6a11cb;
+            position: absolute;
+        }
+
+        #entroImage {
+            width: 80px;
+            height: 80px;
+            display: none;
+            position: absolute;
         }
 
         button {
@@ -87,6 +96,7 @@
         <h1>Множитель</h1>
 
         <div class="multiplier-container">
+            <img src="entro.svg" alt="Загрузка" id="entroImage">
             <div class="multiplier" id="multiplier">x0.00</div>
         </div>
 
@@ -94,20 +104,23 @@
     </div>
 
     <script>
-        // Функция генерации множителя
-        function generateMultiplier() {
-            const multiplierElement = document.getElementById('multiplier');
+        const multiplierElement = document.getElementById('multiplier');
+        const entroImage = document.getElementById('entroImage');
 
-            // Показать анимацию ожидания
-            multiplierElement.textContent = '...';
-            multiplierElement.style.color = '#FF6347'; // Цвет ожидания
+        // Функция генерации множителя с анимацией
+        function generateMultiplier() {
+            // Скрыть множитель, показать анимацию загрузки
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
 
             setTimeout(() => {
-                // Генерация случайного множителя
+                // Скрыть анимацию, показать сгенерированный множитель
+                entroImage.style.display = 'none';
+
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
                 multiplierElement.textContent = `x${randomMultiplier}`;
-                multiplierElement.style.color = '#6a11cb'; // Цвет результата
-            }, 3000); // Задержка в 3 секунды
+                multiplierElement.style.display = 'block';
+            }, 4000); // Задержка в 4 секунды
         }
     </script>
 </body>
