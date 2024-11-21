@@ -47,11 +47,21 @@
         }
 
         .multiplier {
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            color: #6a11cb;
+            color: white;
             display: none;
             position: absolute;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         #entroImage {
@@ -61,13 +71,15 @@
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
-            font-size: 1em;
+            font-family: 'Intro', sans-serif;
+            font-size: 1.2em;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -108,12 +120,13 @@
             entroImage.style.display = 'block';
 
             setTimeout(() => {
-                // Скрыть анимацию, показать сгенерированный множитель
+                // Скрыть анимацию, показать сгенерированный множитель с анимацией
                 entroImage.style.display = 'none';
 
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
                 multiplierElement.textContent = `x${randomMultiplier}`;
                 multiplierElement.style.display = 'block';
+                multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
             }, 4000); // Задержка в 4 секунды
         }
 
