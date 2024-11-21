@@ -18,6 +18,7 @@
             color: white;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
@@ -43,11 +44,19 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; /* Распределение пространства по центру */
+            gap: 20px; /* Отступы между элементами */
+        }
+
         .title {
             font-family: 'Intro', sans-serif;
             font-size: 1.8em;
             text-align: center;
-            margin: 30px 0 20px 0; /* Отступы от лого и меню */
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -99,31 +108,34 @@
     <div class="header-text">HACK</div>
 </div>
 
-<!-- Заголовок "Выберите игру" -->
-<div class="title">Выберите игру</div>
+<!-- Центрированное меню с заголовком -->
+<div class="center-content">
+    <!-- Заголовок -->
+    <div class="title">Выберите игру</div>
 
-<!-- Вертикальное меню -->
-<div class="menu-container">
-    <!-- Карточка 1 -->
-    <div class="game-card" onclick="window.location.href='luckyjet.html'">
-        <!-- Изображение кнопки в формате AVIF с fallback -->
-        <picture>
-            <source srcset="luckyjet.avif" type="image/avif">
-            <source srcset="luckyjet.jpg" type="image/jpeg">
-            <img src="luckyjet.jpg" alt="Lucky Jet" class="game-image">
-        </picture>
-        <div class="game-title">Lucky Jet</div>
-    </div>
+    <!-- Вертикальное меню -->
+    <div class="menu-container">
+        <!-- Карточка 1 -->
+        <div class="game-card" onclick="window.location.href='luckyjet.html'">
+            <!-- Изображение кнопки в формате AVIF с fallback -->
+            <picture>
+                <source srcset="luckyjet.avif" type="image/avif">
+                <source srcset="luckyjet.jpg" type="image/jpeg">
+                <img src="luckyjet.jpg" alt="Lucky Jet" class="game-image">
+            </picture>
+            <div class="game-title">Lucky Jet</div>
+        </div>
 
-    <!-- Карточка 2 -->
-    <div class="game-card" onclick="window.location.href='mines.html'">
-        <!-- Изображение кнопки в формате AVIF с fallback -->
-        <picture>
-            <source srcset="mines.avif" type="image/avif">
-            <source srcset="mines.jpg" type="image/jpeg">
-            <img src="mines.jpg" alt="Mines" class="game-image">
-        </picture>
-        <div class="game-title">Mines</div>
+        <!-- Карточка 2 -->
+        <div class="game-card" onclick="window.location.href='mines.html'">
+            <!-- Изображение кнопки в формате AVIF с fallback -->
+            <picture>
+                <source srcset="mines.avif" type="image/avif">
+                <source srcset="mines.jpg" type="image/jpeg">
+                <img src="mines.jpg" alt="Mines" class="game-image">
+            </picture>
+            <div class="game-title">Mines</div>
+        </div>
     </div>
 </div>
 
