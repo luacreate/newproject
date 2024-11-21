@@ -7,14 +7,13 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
             color: white;
         }
 
@@ -43,9 +42,9 @@
         }
 
         .svg-container {
-            margin-bottom: 20px;
             width: 150px;
             height: 150px;
+            margin-bottom: 20px;
         }
 
         .svg-container img {
@@ -92,7 +91,7 @@
         <h2>Подключение</h2>
         <!-- SVG-анимация -->
         <div class="svg-container">
-            <img src="entro.svg" alt="SVG Animation">
+            <img src="entro.svg" alt="Animated SVG" onerror="this.src='fallback.png'; this.alt='Fallback Image';">
         </div>
         <!-- Полоска загрузки -->
         <div class="loading-container">
@@ -103,12 +102,7 @@
     </div>
 
     <script>
-        // Проверяем, загружается ли SVG
-        document.querySelector('.svg-container img').addEventListener('error', () => {
-            alert('SVG файл не найден или путь указан неверно!');
-        });
-
-        // Устанавливаем таймер на 5 секунд для перенаправления
+        // Перенаправление через 5 секунд
         setTimeout(() => {
             window.location.href = "menu.html";
         }, 5000);
