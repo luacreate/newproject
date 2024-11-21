@@ -21,13 +21,9 @@
 
         .menu-container {
             display: flex;
-            flex-wrap: nowrap; /* Все карточки в один ряд */
             justify-content: center;
-            align-items: center;
             gap: 20px; /* Отступы между карточками */
-            overflow-x: auto; /* Горизонтальная прокрутка для узких экранов */
             padding: 20px;
-            max-width: 100%; /* Ограничение ширины контейнера */
         }
 
         .game-card {
@@ -39,7 +35,6 @@
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
-            flex: 0 0 auto; /* Карточка фиксированного размера */
         }
 
         .game-card:hover {
@@ -60,20 +55,6 @@
             width: 100%;
             height: 140px;
             object-fit: cover;
-        }
-
-        /* Добавляем стиль для горизонтальной полосы прокрутки */
-        .menu-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .menu-container::-webkit-scrollbar-thumb {
-            background: #6a11cb;
-            border-radius: 4px;
-        }
-
-        .menu-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -102,16 +83,6 @@
             <img src="mines.jpg" alt="Mines" class="game-image">
         </picture>
         <div class="game-title">Mines</div>
-    </div>
-
-    <!-- Карточка 3 -->
-    <div class="game-card" onclick="window.location.href='slots.html'">
-        <picture>
-            <source srcset="slots.avif" type="image/avif">
-            <source srcset="slots.jpg" type="image/jpeg">
-            <img src="slots.jpg" alt="Slots" class="game-image">
-        </picture>
-        <div class="game-title">Slots</div>
     </div>
 </div>
 
