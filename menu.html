@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор игры</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
+            color: white;
+            overflow: hidden;
+        }
 
+        .container {
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(10, 10, 25, 0.9); /* Полупрозрачный фон */
+            box-shadow: 
+                0 0 30px rgba(72, 84, 255, 0.8),
+                0 0 60px rgba(144, 50, 250, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 2em;
+            background: linear-gradient(to right, #ff416c, #ff4b2b); /* Градиентный текст */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-option {
+            margin: 15px 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #2575fc, #6a11cb); /* Градиент кнопки */
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 117, 252, 0.6);
+        }
+
+        .game-option:active {
+            transform: scale(1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Выберите игру</h2>
+    <div class="game-option" onclick="window.location.href='luckyjet.html'">
+        Lucky Jet
+    </div>
+    <div class="game-option" onclick="window.location.href='mines.html'">
+        Mines
+    </div>
+</div>
+
+</body>
+</html>
