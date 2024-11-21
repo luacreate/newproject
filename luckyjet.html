@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Soft Multiplier</title>
+    <style>
+        @font-face {
+            font-family: 'Intro';
+            src: url('intro.otf') format('opentype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(20, 20, 30, 0.9); /* Фон блока */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Intro', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .multiplier-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            margin: 20px 0;
+            border-radius: 50%;
+            background: rgba(72, 84, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
+        }
+
+        .multiplier {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6a11cb;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin-top: 20px;
+            width: 100%;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Множитель</h1>
+
+        <div class="multiplier-container">
+            <div class="multiplier" id="multiplier">x0.00</div>
+        </div>
+
+        <button onclick="generateMultiplier()">Сгенерировать</button>
+    </div>
+
+    <script>
+        // Функция генерации множителя
+        function generateMultiplier() {
+            const multiplierElement = document.getElementById('multiplier');
+
+            // Показать анимацию ожидания
+            multiplierElement.textContent = '...';
+            multiplierElement.style.color = '#FF6347'; // Цвет ожидания
+
+            setTimeout(() => {
+                // Генерация случайного множителя
+                const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
+                multiplierElement.textContent = `x${randomMultiplier}`;
+                multiplierElement.style.color = '#6a11cb'; // Цвет результата
+            }, 3000); // Задержка в 3 секунды
+        }
+    </script>
+</body>
+</html>
