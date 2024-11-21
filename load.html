@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Подключение</title>
     <style>
+        @font-face {
+            font-family: 'Intro';
+            src: url('intro.otf') format('opentype');
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -13,7 +18,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Intro', sans-serif;
             background: linear-gradient(135deg, #000428, #004e92); /* Градиент */
             color: white;
             overflow: hidden;
@@ -32,26 +37,6 @@
             text-align: center;
             max-width: 400px;
             width: 90%;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Градиентный текст */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .svg-container {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
-        }
-
-        .svg-container img {
-            width: 100%;
-            height: 100%;
-            display: block;
         }
 
         .loading-container {
@@ -77,8 +62,9 @@
         }
 
         .connection-text {
-            font-size: 1.5em;
+            font-size: 1.8em;
             animation: blinking 1.2s infinite; /* Мигание текста */
+            text-align: center;
         }
 
         @keyframes blinking {
@@ -89,11 +75,6 @@
 </head>
 <body>
     <div class="container">
-        <h2>Подключение</h2>
-        <!-- SVG-анимация -->
-        <div class="svg-container">
-            <img src="entro.svg" alt="Animated SVG">
-        </div>
         <!-- Полоска загрузки -->
         <div class="loading-container">
             <div class="loading-bar"></div>
