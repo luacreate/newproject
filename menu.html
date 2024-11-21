@@ -18,29 +18,45 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределение контента по вертикали */
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
         }
 
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .header img {
+            width: 80px;
+            height: auto;
+        }
+
         .header-text {
+            font-family: 'Intro', sans-serif;
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .title {
             font-family: 'Intro', sans-serif;
             font-size: 1.8em;
             text-align: center;
-            margin-top: 50px; /* Увеличен отступ сверху */
-            margin-bottom: 20px; /* Увеличен отступ до меню */
+            margin: 30px 0 20px 0; /* Отступы от лого и меню */
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .menu-container {
             display: flex;
-            justify-content: center;
-            gap: 10px; /* Отступы между карточками */
-            padding: 10px;
-            flex-wrap: wrap; /* Для компактного размещения на маленьких экранах */
-            max-width: 100%; /* Контейнер ограничен шириной экрана */
+            flex-direction: column;
+            gap: 15px; /* Отступы между карточками */
+            align-items: center;
         }
 
         .game-card {
@@ -48,7 +64,7 @@
             border-radius: 10px; /* Более компактный вид */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            width: 150px; /* Уменьшенная ширина карточки */
+            width: 200px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
@@ -73,33 +89,20 @@
             height: 100px; /* Уменьшенная высота изображения */
             object-fit: cover;
         }
-
-        .footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px; /* Поднято чуть выше */
-        }
-
-        .footer img {
-            width: 80px;
-            height: auto;
-            margin-bottom: 10px; /* Отступ между логотипом и надписью */
-        }
-
-        .footer-text {
-            font-family: 'Intro', sans-serif;
-            font-size: 1.5em;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
     </style>
 </head>
 <body>
 
-<!-- Заголовок прямо над меню -->
-<div class="header-text">Выберите игру</div>
+<!-- Логотип и HACK -->
+<div class="header">
+    <img src="1winlogo.svg" alt="1Win Logo">
+    <div class="header-text">HACK</div>
+</div>
 
+<!-- Заголовок "Выберите игру" -->
+<div class="title">Выберите игру</div>
+
+<!-- Вертикальное меню -->
 <div class="menu-container">
     <!-- Карточка 1 -->
     <div class="game-card" onclick="window.location.href='luckyjet.html'">
@@ -122,11 +125,6 @@
         </picture>
         <div class="game-title">Mines</div>
     </div>
-</div>
-
-<div class="footer">
-    <img src="1winlogo.svg" alt="1Win Logo">
-    <div class="footer-text">HACK</div>
 </div>
 
 </body>
