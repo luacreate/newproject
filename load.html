@@ -12,19 +12,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
             color: white;
+            overflow: hidden;
         }
 
         .container {
             padding: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(10, 10, 25, 0.9);
             box-shadow: 
-                0 0 20px rgba(37, 117, 252, 0.6),
-                0 0 40px rgba(144, 50, 250, 0.4);
+                0 0 30px rgba(72, 84, 255, 0.8),
+                0 0 60px rgba(144, 50, 250, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -35,7 +35,7 @@
 
         h2 {
             font-size: 2.5em;
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
@@ -91,7 +91,7 @@
         <h2>Подключение</h2>
         <!-- SVG-анимация -->
         <div class="svg-container">
-            <img src="entro.svg" alt="Animated SVG" onerror="this.src='fallback.png'; this.alt='Fallback Image';">
+            <img src="entro.svg" alt="Animated SVG">
         </div>
         <!-- Полоска загрузки -->
         <div class="loading-container">
@@ -102,8 +102,9 @@
     </div>
 
     <script>
-        // Перенаправление через 5 секунд
+        // Устанавливаем таймер на 5 секунд для анимации загрузки
         setTimeout(() => {
+            // Переход на menu.html
             window.location.href = "menu.html";
         }, 5000);
     </script>
