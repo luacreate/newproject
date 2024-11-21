@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Soft Multiplier</title>
+    <title>Lucky Jet Signals</title>
     <style>
         @font-face {
             font-family: 'Intro';
@@ -17,29 +17,18 @@
             background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-            border-radius: 20px;
-            background: rgba(20, 20, 30, 0.9); /* Фон блока */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
             text-align: center;
         }
 
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 1.8em;
-            margin-bottom: 20px;
+            font-size: 2em;
+            margin-bottom: 40px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -50,7 +39,7 @@
             align-items: center;
             width: 120px;
             height: 120px;
-            margin: 20px 0;
+            margin-bottom: 30px;
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
@@ -61,20 +50,19 @@
             font-size: 2em;
             font-weight: bold;
             color: #6a11cb;
+            display: none;
             position: absolute;
         }
 
         #entroImage {
             width: 80px;
             height: 80px;
-            display: none;
             position: absolute;
         }
 
         button {
             padding: 12px 25px;
             margin-top: 20px;
-            width: 100%;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 10px;
@@ -89,19 +77,25 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
+
+        .footer-logo {
+            margin-top: 40px;
+            width: 150px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Множитель</h1>
+    <h1>Lucky Jet Signals</h1>
 
-        <div class="multiplier-container">
-            <img src="entro.svg" alt="Загрузка" id="entroImage">
-            <div class="multiplier" id="multiplier">x0.00</div>
-        </div>
-
-        <button onclick="generateMultiplier()">Сгенерировать</button>
+    <div class="multiplier-container">
+        <img src="entro.svg" alt="Загрузка" id="entroImage">
+        <div class="multiplier" id="multiplier">x0.00</div>
     </div>
+
+    <button onclick="generateMultiplier()">Получить сигнал</button>
+
+    <!-- Логотип LJtext.svg -->
+    <img src="LJtext.svg" alt="Lucky Jet Text" class="footer-logo">
 
     <script>
         const multiplierElement = document.getElementById('multiplier');
@@ -122,6 +116,12 @@
                 multiplierElement.style.display = 'block';
             }, 4000); // Задержка в 4 секунды
         }
+
+        // При загрузке страницы
+        window.onload = () => {
+            multiplierElement.style.display = 'none'; // Скрыть множитель
+            entroImage.style.display = 'block'; // Показать SVG
+        };
     </script>
 </body>
 </html>
