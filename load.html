@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #000428, #004e92); /* Фон как в оригинале */
+            background: linear-gradient(135deg, #000428, #004e92); /* Градиент */
             color: white;
             overflow: hidden;
         }
@@ -22,7 +22,7 @@
         .container {
             padding: 30px;
             border-radius: 20px;
-            background: rgba(10, 10, 25, 0.9);
+            background: rgba(10, 10, 25, 0.9); /* Полупрозрачный фон */
             box-shadow: 
                 0 0 30px rgba(72, 84, 255, 0.8),
                 0 0 60px rgba(144, 50, 250, 0.6);
@@ -36,7 +36,7 @@
 
         h2 {
             font-size: 2.5em;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Градиентный текст */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
@@ -66,9 +66,9 @@
         .loading-bar {
             width: 0%;
             height: 100%;
-            background-color: #ff8c00;
+            background-color: #ff8c00; /* Оранжевая полоска */
             border-radius: 10px;
-            animation: loading 5s linear forwards;
+            animation: loading 5s linear forwards; /* Анимация загрузки */
         }
 
         @keyframes loading {
@@ -78,7 +78,7 @@
 
         .connection-text {
             font-size: 1.5em;
-            animation: blinking 1.2s infinite;
+            animation: blinking 1.2s infinite; /* Мигание текста */
         }
 
         @keyframes blinking {
@@ -105,7 +105,7 @@
     <script>
         // Устанавливаем таймер на 5 секунд для завершения загрузки
         setTimeout(() => {
-            // Перенаправление на menu.html
+            // Переход на menu.html
             window.location.href = "menu.html";
         }, 5000); // Время совпадает с длительностью анимации загрузки
     </script>
