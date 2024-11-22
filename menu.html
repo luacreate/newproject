@@ -138,30 +138,22 @@
 </div>
 
 <script>
-    // Распознавание устройства при загрузке
-<script>
     function detectPlatform() {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Проверка для iOS в Telegram WebView
-        if (/iPad|iPhone|iPod|Macintosh/.test(userAgent) && navigator.maxTouchPoints > 1) {
-            console.log("Detected platform: iOS (Telegram WebView)");
+        // Проверка iOS
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            console.log("Detected platform: iOS");
             return 'ios';
         }
 
-        // Проверка для Android
+        // Проверка Android
         if (/android/i.test(userAgent)) {
             console.log("Detected platform: Android");
             return 'android-pc';
         }
 
-        // Проверка для ПК (Windows, Mac)
-        if (/windows/i.test(userAgent) || /linux/i.test(userAgent) || /macintosh/i.test(userAgent)) {
-            console.log("Detected platform: PC");
-            return 'android-pc';
-        }
-
-        // По умолчанию Android/PC
+        // По умолчанию для ПК
         console.log("Default platform: Android/PC");
         return 'android-pc';
     }
@@ -169,7 +161,6 @@
     // Lucky Jet
     function openLuckyJet() {
         const platform = detectPlatform();
-        console.log("Opening Lucky Jet for platform:", platform);
         if (platform === 'ios') {
             window.location.href = 'luckyjet/luckyjet-ios/index.html';
         } else {
@@ -180,21 +171,13 @@
     // Mines
     function openMines() {
         const platform = detectPlatform();
-        console.log("Opening Mines for platform:", platform);
         if (platform === 'ios') {
             window.location.href = 'mines/mines-ios/index.html';
         } else {
             window.location.href = 'mines/mines-android-pc/index.html';
         }
     }
-
-    // Запуск определения платформы при загрузке
-    window.onload = () => {
-        const platform = detectPlatform();
-        console.log("Detected platform on page load:", platform);
-    };
 </script>
-
 
 </body>
 </html>
