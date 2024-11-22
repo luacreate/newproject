@@ -116,7 +116,7 @@
     <!-- Меню -->
     <div class="menu-container">
         <!-- Карточка 1 -->
-        <div class="game-card" onclick="window.location.href='luckyjet.html'">
+        <div class="game-card" onclick="openLuckyJet()">
             <picture>
                 <source srcset="luckyjet.avif" type="image/avif">
                 <source srcset="luckyjet.jpg" type="image/jpeg">
@@ -138,22 +138,31 @@
 </div>
 
 <script>
-    function openMines() {
-        // Определение устройства пользователя
+    function detectPlatform() {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            window.location.href = 'mines/mines-ios/index.html';
-        } 
+            return 'ios';
+        }
         // Проверка Android или ПК
         else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            window.location.href = 'mines/mines-android-pc/index.html';
-        } 
-        // Устройство по умолчанию (ПК)
-        else {
-            window.location.href = 'mines/mines-android-pc/index.html';
+            return 'android-pc';
         }
+        // По умолчанию возвращаем "android-pc"
+        else {
+            return 'android-pc';
+        }
+    }
+
+    function openLuckyJet() {
+        const platform = detectPlatform();
+        window.location.href = `luckyjet/luckyjet-${platform}/index.html`;
+    }
+
+    function openMines() {
+        const platform = detectPlatform();
+        window.location.href = `mines/mines-${platform}/index.html`;
     }
 </script>
 
