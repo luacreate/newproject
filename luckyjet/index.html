@@ -22,7 +22,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            position: relative; /* Чтобы элементы позиционировались внутри body */
+            position: relative;
             text-align: center;
         }
 
@@ -33,7 +33,7 @@
             margin-bottom: 30px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Поверх всех фонов */
+            z-index: 2;
         }
 
         /* Контейнер для множителя */
@@ -104,11 +104,11 @@
         /* Нижняя SVG-анимация */
         .background-svg {
             position: absolute;
-            bottom: 0;
+            bottom: 5%; /* Поднято выше */
             left: 0;
             width: 100%;
             height: auto;
-            z-index: 1; /* Под контейнером */
+            z-index: 1;
         }
 
         /* Верхние звезды */
@@ -125,7 +125,7 @@
         /* Нижний текст LJtext */
         .footer-logo {
             position: absolute;
-            bottom: 20%; /* Поднято выше, чтобы не перекрывать кнопки */
+            bottom: 2%; /* Перемещено ниже */
             left: 50%;
             transform: translateX(-50%);
             width: 150px;
