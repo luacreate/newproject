@@ -23,12 +23,13 @@
             height: 100vh;
             overflow: hidden;
             text-align: center;
+            position: relative;
         }
 
         h1 {
             font-family: 'Intro', sans-serif;
             font-size: 2em;
-            margin-bottom: 40px;
+            margin-bottom: 30px; /* Поднят немного выше */
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -37,9 +38,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 120px;
-            height: 120px;
-            margin-bottom: 30px;
+            width: 150px; /* Увеличенный круг */
+            height: 150px; /* Увеличенный круг */
+            margin-bottom: 20px;
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
@@ -47,7 +48,7 @@
         }
 
         .multiplier {
-            font-size: 2.5em;
+            font-size: 2.8em; /* Немного увеличенный шрифт */
             font-weight: bold;
             color: white;
             display: none;
@@ -65,14 +66,14 @@
         }
 
         #entroImage {
-            width: 80px;
-            height: 80px;
+            width: 100px; /* Увеличен для соответствия кругу */
+            height: 100px; /* Увеличен для соответствия кругу */
             position: absolute;
         }
 
         button {
             padding: 15px 30px;
-            margin-top: 20px;
+            margin-top: 30px; /* Опущен немного ниже */
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
@@ -91,23 +92,39 @@
         }
 
         .footer-logo {
-            margin-top: 40px;
+            margin-top: 30px; /* Опущен немного ниже */
             width: 150px;
+        }
+
+        /* Фон animot.svg */
+        .background-svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: -1; /* Чтобы SVG не перекрывал интерфейс */
         }
     </style>
 </head>
 <body>
+    <!-- Заголовок -->
     <h1>Lucky Jet Signals</h1>
 
+    <!-- Контейнер для множителя -->
     <div class="multiplier-container">
         <img src="entro.svg" alt="Загрузка" id="entroImage">
         <div class="multiplier" id="multiplier">x0.00</div>
     </div>
 
+    <!-- Кнопка -->
     <button onclick="generateMultiplier()">Получить сигнал</button>
 
-    <!-- Логотип LJtext.svg -->
+    <!-- Логотип -->
     <img src="LJtext.svg" alt="Lucky Jet Text" class="footer-logo">
+
+    <!-- Фоновая анимация -->
+    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
 
     <script>
         const multiplierElement = document.getElementById('multiplier');
