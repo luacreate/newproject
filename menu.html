@@ -126,7 +126,7 @@
         </div>
 
         <!-- Карточка 2 -->
-        <div class="game-card" onclick="window.location.href='mines.html'">
+        <div class="game-card" onclick="openMines()">
             <picture>
                 <source srcset="mines.avif" type="image/avif">
                 <source srcset="mines.jpg" type="image/jpeg">
@@ -136,6 +136,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openMines() {
+        // Определение устройства пользователя
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
+            // ПК или Android
+            window.location.href = 'mines/mines-android-pc/index.html';
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            // iOS
+            window.location.href = 'mines/mines-ios/index.html';
+        } else {
+            // По умолчанию открываем версию для ПК/Android
+            window.location.href = 'mines/mines-android-pc/index.html';
+        }
+    }
+</script>
 
 </body>
 </html>
