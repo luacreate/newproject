@@ -119,58 +119,6 @@
             height: auto;
             z-index: -1;
         }
-
-        /* Адаптация для мобильных устройств */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .multiplier-container {
-                width: 120px;
-                height: 120px;
-            }
-
-            #entroImage {
-                width: 80px;
-                height: 80px;
-            }
-
-            .button {
-                font-size: 1em;
-                padding: 12px 24px;
-            }
-
-            .top-image {
-                width: 1000px;
-            }
-        }
-
-        /* Адаптация для планшетов */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .multiplier-container {
-                width: 140px;
-                height: 140px;
-            }
-
-            #entroImage {
-                width: 90px;
-                height: 90px;
-            }
-
-            .button {
-                font-size: 1.1em;
-                padding: 14px 28px;
-            }
-
-            .top-image {
-                width: 1300px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -198,6 +146,18 @@
         const entroImage = document.getElementById('entroImage');
         const signalButton = document.getElementById('signalButton');
 
+        function adjustScale() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Увеличиваем масштаб для маленьких устройств
+            const scaleFactor = screenWidth < 768 ? 1.5 : screenWidth < 1024 ? 1.2 : 1;
+
+            document.documentElement.style.setProperty('--scale-factor', scaleFactor);
+            document.body.style.transform = `scale(${scaleFactor})`;
+            document.body.style.transformOrigin = 'top center';
+        }
+
         // Функция генерации множителя с анимацией
         function generateMultiplier() {
             signalButton.disabled = true;
@@ -221,10 +181,14 @@
         }
 
         // При загрузке страницы
-        window.onload = () => {
+        window.addEventListener('DOMContentLoaded', () => {
+            adjustScale();
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
-        };
+        });
+
+        // При изменении размера окна
+        window.addEventListener('resize', adjustScale);
     </script>
 </body>
 </html>
