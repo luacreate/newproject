@@ -138,42 +138,25 @@
 </div>
 
 <script>
-    function detectPlatform() {
+    function openLuckyJet() {
+        // Открываем Lucky Jet без учета устройства
+        window.location.href = 'luckyjet/index.html';
+    }
+
+    function openMines() {
+        // Определение устройства пользователя
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            console.log("Detected platform: iOS");
-            return 'ios';
-        }
-
-        // Проверка Android
-        if (/android/i.test(userAgent)) {
-            console.log("Detected platform: Android");
-            return 'android-pc';
-        }
-
-        // По умолчанию для ПК
-        console.log("Default platform: Android/PC");
-        return 'android-pc';
-    }
-
-    // Lucky Jet
-    function openLuckyJet() {
-        const platform = detectPlatform();
-        if (platform === 'ios') {
-            window.location.href = 'luckyjet/luckyjet-ios/index.html';
-        } else {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';
-        }
-    }
-
-    // Mines
-    function openMines() {
-        const platform = detectPlatform();
-        if (platform === 'ios') {
             window.location.href = 'mines/mines-ios/index.html';
-        } else {
+        } 
+        // Проверка Android или ПК
+        else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
+            window.location.href = 'mines/mines-android-pc/index.html';
+        } 
+        // Устройство по умолчанию (ПК)
+        else {
             window.location.href = 'mines/mines-android-pc/index.html';
         }
     }
