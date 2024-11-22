@@ -17,6 +17,7 @@
             background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -25,19 +26,10 @@
             position: relative;
         }
 
-        .scale-wrapper {
-            transform: scale(3); /* Увеличиваем масштаб в 3 раза */
-            transform-origin: center center; /* Центрируем масштабирование */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 2.5em;
-            margin-bottom: 40px;
+            font-size: 2em;
+            margin-bottom: 30px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -46,17 +38,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 180px;
-            height: 180px;
-            margin-bottom: 30px;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
             border-radius: 50%;
-            background: rgba(72, 84, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(72, 84, 255, 0.8);
+            background: rgba(72, 84, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
             position: relative;
         }
 
         .multiplier {
-            font-size: 3.5em;
+            font-size: 2.8em;
             font-weight: bold;
             color: white;
             display: none;
@@ -74,20 +66,20 @@
         }
 
         #entroImage {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             position: absolute;
         }
 
         .button {
-            padding: 20px 40px;
-            margin-top: 30px;
+            padding: 15px 30px;
+            margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 20px;
+            border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -105,13 +97,13 @@
         }
 
         .footer-logo {
-            margin-top: 40px;
-            width: 200px;
+            margin-top: 30px;
+            width: 150px;
         }
 
         .background-svg {
             position: absolute;
-            bottom: 5%;
+            bottom: 10%;
             left: 0;
             width: 100%;
             height: auto;
@@ -120,33 +112,83 @@
 
         .top-image {
             position: absolute;
-            top: 20%;
+            top: 25%;
             left: 50%;
             transform: translateX(-50%);
-            width: 1300px;
+            width: 1500px;
             height: auto;
             z-index: -1;
+        }
+
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .multiplier-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            #entroImage {
+                width: 80px;
+                height: 80px;
+            }
+
+            .button {
+                font-size: 1em;
+                padding: 12px 24px;
+            }
+
+            .top-image {
+                width: 1000px;
+            }
+        }
+
+        /* Адаптация для планшетов */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .multiplier-container {
+                width: 140px;
+                height: 140px;
+            }
+
+            #entroImage {
+                width: 90px;
+                height: 90px;
+            }
+
+            .button {
+                font-size: 1.1em;
+                padding: 14px 28px;
+            }
+
+            .top-image {
+                width: 1300px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="scale-wrapper">
-        <!-- Верхнее изображение -->
-        <img src="LJstars.png" alt="LJ Stars" class="top-image">
+    <!-- Верхнее изображение -->
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-        <!-- Заголовок -->
-        <h1>Lucky Jet Signals</h1>
+    <!-- Заголовок -->
+    <h1>Lucky Jet Signals</h1>
 
-        <!-- Контейнер для множителя -->
-        <div class="multiplier-container">
-            <img src="entro.svg" alt="Загрузка" id="entroImage">
-            <div class="multiplier" id="multiplier">x0.00</div>
-        </div>
-
-        <!-- Кнопки -->
-        <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
-        <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
+    <!-- Контейнер для множителя -->
+    <div class="multiplier-container">
+        <img src="entro.svg" alt="Загрузка" id="entroImage">
+        <div class="multiplier" id="multiplier">x0.00</div>
     </div>
+
+    <!-- Кнопки -->
+    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
 
     <!-- Фоновая анимация -->
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
