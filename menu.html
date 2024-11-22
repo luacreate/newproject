@@ -138,41 +138,47 @@
 </div>
 
 <script>
-    // Функция для открытия Lucky Jet
-    function openLuckyJet() {
-        // Определение устройства пользователя
+    function detectPlatform() {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        console.log("User-Agent:", userAgent); // Для отладки
 
         // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            window.location.href = 'luckyjet/luckyjet-ios/index.html';  // Путь для iOS
-        } 
-        // Проверка Android или ПК
-        else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь для Android и ПК
-        } 
+            console.log("Обнаружено устройство iOS");
+            return 'ios';
+        }
+        // Проверка Android
+        if (/android/i.test(userAgent)) {
+            console.log("Обнаружено устройство Android");
+            return 'android-pc';
+        }
+        // Проверка Windows
+        if (/windows/i.test(userAgent) || /linux/i.test(userAgent) || /macintosh/i.test(userAgent)) {
+            console.log("Обнаружено настольное устройство (ПК)");
+            return 'android-pc';
+        }
+
         // Устройство по умолчанию
-        else {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь по умолчанию
+        console.log("Устройство не распознано, выбираем Android/ПК");
+        return 'android-pc';
+    }
+
+    function openLuckyJet() {
+        const platform = detectPlatform();
+        if (platform === 'ios') {
+            window.location.href = 'luckyjet/luckyjet-ios/index.html';
+        } else {
+            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';
         }
     }
 
-    // Функция для открытия Mines
     function openMines() {
-        // Определение устройства пользователя
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-        // Проверка iOS
-        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            window.location.href = 'mines/mines-ios/index.html';  // Путь для iOS
-        } 
-        // Проверка Android или ПК
-        else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            window.location.href = 'mines/mines-android-pc/index.html';  // Путь для Android и ПК
-        } 
-        // Устройство по умолчанию
-        else {
-            window.location.href = 'mines/mines-android-pc/index.html';  // Путь по умолчанию
+        const platform = detectPlatform();
+        if (platform === 'ios') {
+            window.location.href = 'mines/mines-ios/index.html';
+        } else {
+            window.location.href = 'mines/mines-android-pc/index.html';
         }
     }
 </script>
