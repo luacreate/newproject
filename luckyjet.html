@@ -29,7 +29,7 @@
         h1 {
             font-family: 'Intro', sans-serif;
             font-size: 2em;
-            margin-bottom: 30px; /* Поднят немного выше */
+            margin-bottom: 30px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -38,8 +38,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 150px; /* Увеличенный круг */
-            height: 150px; /* Увеличенный круг */
+            width: 150px;
+            height: 150px;
             margin-bottom: 20px;
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
@@ -48,7 +48,7 @@
         }
 
         .multiplier {
-            font-size: 2.8em; /* Немного увеличенный шрифт */
+            font-size: 2.8em;
             font-weight: bold;
             color: white;
             display: none;
@@ -66,8 +66,8 @@
         }
 
         #entroImage {
-            width: 100px; /* Увеличен для соответствия кругу */
-            height: 100px; /* Увеличен для соответствия кругу */
+            width: 100px;
+            height: 100px;
             position: absolute;
         }
 
@@ -97,13 +97,13 @@
         }
 
         .footer-logo {
-            margin-top: 30px; /* Опущен немного ниже */
+            margin-top: 30px;
             width: 150px;
         }
 
         .background-svg {
             position: absolute;
-            bottom: 10%; /* Размещено чуть выше нижней границы */
+            bottom: 10%;
             left: 0;
             width: 100%;
             height: auto;
@@ -112,10 +112,12 @@
 
         .top-image {
             position: absolute;
-            top: 25%; /* Размещено немного выше центра */
+            top: 25%;
             left: 50%;
-            transform: translateX(-50%) scale(15); /* Увеличение в 15 раз */
-            transform-origin: center; /* Центрирование масштабирования */
+            transform: translateX(-50%);
+            width: 3000px; /* Увеличено в 15 раз */
+            height: auto;
+            z-index: -1; /* Размещено позади интерфейса */
         }
     </style>
 </head>
@@ -146,7 +148,6 @@
 
         // Функция генерации множителя с анимацией
         function generateMultiplier() {
-            // Отключить кнопку
             signalButton.disabled = true;
 
             // Скрыть множитель, показать анимацию загрузки
@@ -169,8 +170,8 @@
 
         // При загрузке страницы
         window.onload = () => {
-            multiplierElement.style.display = 'none'; // Скрыть множитель
-            entroImage.style.display = 'block'; // Показать SVG
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
         };
     </script>
 </body>
