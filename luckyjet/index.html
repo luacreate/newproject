@@ -5,53 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucky Jet Signals</title>
     <style>
-        /* Подключение шрифта */
         @font-face {
             font-family: 'Intro';
             src: url('intro.otf') format('opentype');
         }
 
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
             overflow: hidden;
+            position: relative; /* Чтобы элементы позиционировались внутри body */
+            text-align: center;
         }
 
-        #interface {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
+        /* Заголовок */
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Поверх всех фонов */
         }
 
+        /* Контейнер для множителя */
         .multiplier-container {
             display: flex;
             justify-content: center;
@@ -63,10 +48,11 @@
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
             position: relative;
+            z-index: 2;
         }
 
         .multiplier {
-            font-size: 2.5em;
+            font-size: 2.8em;
             font-weight: bold;
             color: white;
             display: none;
@@ -89,14 +75,13 @@
             position: absolute;
         }
 
+        /* Кнопки */
         .button {
             padding: 15px 30px;
-            margin-top: 15px;
-            width: 100%;
-            max-width: 300px;
+            margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
             font-size: 1.2em;
@@ -104,6 +89,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
         }
 
         .button:hover {
@@ -115,46 +101,60 @@
             cursor: not-allowed;
         }
 
-        .footer-logo {
-            margin-top: 20px;
-            width: 120px;
-        }
-
+        /* Нижняя SVG-анимация */
         .background-svg {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: auto;
-            z-index: -1;
+            z-index: 1; /* Под контейнером */
         }
 
+        /* Верхние звезды */
         .top-image {
             position: absolute;
-            top: 20%;
+            top: 15%;
             left: 50%;
             transform: translateX(-50%);
             width: 80%;
             max-width: 500px;
-            z-index: -1;
+            z-index: 1;
+        }
+
+        /* Нижний текст LJtext */
+        .footer-logo {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
-    <div id="interface">
-        <img src="LJstars.png" alt="LJ Stars" class="top-image">
-        <h1>Lucky Jet Signals</h1>
+    <!-- Верхние звезды -->
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-        <!-- Контейнер множителя -->
-        <div class="multiplier-container">
-            <img src="entro.svg" alt="Загрузка" id="entroImage">
-            <div class="multiplier" id="multiplier">x0.00</div>
-        </div>
+    <!-- Заголовок -->
+    <h1>Lucky Jet Signals</h1>
 
-        <!-- Кнопки -->
-        <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
-        <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
+    <!-- Контейнер множителя -->
+    <div class="multiplier-container">
+        <img src="entro.svg" alt="Загрузка" id="entroImage">
+        <div class="multiplier" id="multiplier">x0.00</div>
     </div>
+
+    <!-- Кнопки -->
+    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
+
+    <!-- Нижний логотип -->
+    <img src="LJtext.svg" alt="LJ Text" class="footer-logo">
+
+    <!-- Фоновая анимация -->
+    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
 
     <script>
         const multiplierElement = document.getElementById("multiplier");
@@ -178,14 +178,10 @@
             }, 4000);
         }
 
-        // Инициализация интерфейса
+        // При загрузке страницы
         window.onload = () => {
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
-
-            const interfaceElement = document.getElementById("interface");
-            const scale = Math.min(window.innerWidth / 375, window.innerHeight / 667);
-            interfaceElement.style.transform = `scale(${scale})`;
         };
     </script>
 </body>
