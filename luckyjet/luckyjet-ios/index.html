@@ -17,13 +17,21 @@
             background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
             color: white;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
             text-align: center;
             position: relative;
+        }
+
+        .scale-wrapper {
+            transform: scale(3); /* Увеличиваем масштаб в 3 раза */
+            transform-origin: center center; /* Центрируем масштабирование */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         h1 {
@@ -119,52 +127,26 @@
             height: auto;
             z-index: -1;
         }
-
-        /* Медиа-запрос для iOS */
-        @media (max-width: 1024px) and (min-width: 320px) and (orientation: portrait) {
-            h1 {
-                font-size: 2.8em;
-            }
-            .multiplier-container {
-                width: 200px;
-                height: 200px;
-            }
-            .multiplier {
-                font-size: 4em;
-            }
-            #entroImage {
-                width: 150px;
-                height: 150px;
-            }
-            .button {
-                font-size: 1.7em;
-                padding: 25px 50px;
-            }
-            .footer-logo {
-                width: 250px;
-            }
-            .top-image {
-                width: 1500px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Верхнее изображение -->
-    <img src="LJstars.png" alt="LJ Stars" class="top-image">
+    <div class="scale-wrapper">
+        <!-- Верхнее изображение -->
+        <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-    <!-- Заголовок -->
-    <h1>Lucky Jet Signals</h1>
+        <!-- Заголовок -->
+        <h1>Lucky Jet Signals</h1>
 
-    <!-- Контейнер для множителя -->
-    <div class="multiplier-container">
-        <img src="entro.svg" alt="Загрузка" id="entroImage">
-        <div class="multiplier" id="multiplier">x0.00</div>
+        <!-- Контейнер для множителя -->
+        <div class="multiplier-container">
+            <img src="entro.svg" alt="Загрузка" id="entroImage">
+            <div class="multiplier" id="multiplier">x0.00</div>
+        </div>
+
+        <!-- Кнопки -->
+        <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+        <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
     </div>
-
-    <!-- Кнопки -->
-    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
-    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
 
     <!-- Фоновая анимация -->
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
@@ -204,4 +186,3 @@
     </script>
 </body>
 </html>
-
