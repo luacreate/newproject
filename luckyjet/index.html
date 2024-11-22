@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
     <title>Lucky Jet Signals</title>
     <style>
         @font-face {
@@ -10,26 +10,34 @@
             src: url('intro.otf') format('opentype');
         }
 
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
+            background: linear-gradient(135deg, #000428, #004e92);
             color: white;
+            height: 100%;
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            height: 100vh;
             overflow: hidden;
             text-align: center;
-            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
         }
 
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 2em;
-            color: white;
+            font-size: 2.2em;
+            margin: 0;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -37,8 +45,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
@@ -46,7 +54,7 @@
         }
 
         .multiplier {
-            font-size: 2.8em;
+            font-size: 3em;
             font-weight: bold;
             color: white;
             display: none;
@@ -64,8 +72,8 @@
         }
 
         #entroImage {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             position: absolute;
         }
 
@@ -76,7 +84,7 @@
             border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -91,10 +99,6 @@
         .button:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
-        }
-
-        .footer-logo {
-            width: 150px;
         }
 
         .background-svg {
@@ -115,29 +119,13 @@
             height: auto;
             z-index: -1;
         }
-
-        .content-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
-    <!-- Верхнее изображение -->
-    <img src="LJstars.png" alt="LJ Stars" class="top-image">
+    <div class="container">
+        <!-- Верхнее изображение -->
+        <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-    <div class="content-container">
         <!-- Заголовок -->
         <h1>Lucky Jet Signals</h1>
 
@@ -148,7 +136,7 @@
         </div>
 
         <!-- Кнопки -->
-        <div class="button-container">
+        <div>
             <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
             <button class="button" onclick="window.location.href='/menu.html'">Вернуться в меню</button>
         </div>
@@ -162,29 +150,21 @@
         const entroImage = document.getElementById('entroImage');
         const signalButton = document.getElementById('signalButton');
 
-        // Функция генерации множителя с анимацией
         function generateMultiplier() {
             signalButton.disabled = true;
-
-            // Скрыть множитель, показать анимацию загрузки
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
 
             setTimeout(() => {
-                // Скрыть анимацию, показать сгенерированный множитель с анимацией
                 entroImage.style.display = 'none';
-
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
                 multiplierElement.textContent = `x${randomMultiplier}`;
                 multiplierElement.style.display = 'block';
                 multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
-
-                // Включить кнопку после выполнения
                 signalButton.disabled = false;
-            }, 4000); // Задержка в 4 секунды
+            }, 4000);
         }
 
-        // При загрузке страницы
         window.onload = () => {
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
