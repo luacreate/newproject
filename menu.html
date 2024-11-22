@@ -138,21 +138,22 @@
 </div>
 
 <script>
+<script>
     function openLuckyJet() {
         // Определение устройства пользователя
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            window.location.href = 'luckyjet/luckyjet-ios/index.html';
+            window.location.href = 'luckyjet/luckyjet-ios/index.html';  // Путь для iOS
         } 
         // Проверка Android или ПК
         else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';
+            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь для Android и ПК
         } 
         // Устройство по умолчанию (ПК)
         else {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';
+            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь для ПК по умолчанию
         }
     }
 
@@ -162,18 +163,19 @@
 
         // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            window.location.href = 'mines/mines-ios/index.html';
+            window.location.href = 'mines/mines-ios/index.html';  // Путь для iOS
         } 
         // Проверка Android или ПК
         else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            window.location.href = 'mines/mines-android-pc/index.html';
+            window.location.href = 'mines/mines-android-pc/index.html';  // Путь для Android и ПК
         } 
         // Устройство по умолчанию (ПК)
         else {
-            window.location.href = 'mines/mines-android-pc/index.html';
+            window.location.href = 'mines/mines-android-pc/index.html';  // Путь для ПК по умолчанию
         }
     }
 </script>
+
 
 </body>
 </html>
