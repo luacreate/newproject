@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucky Jet Signals</title>
     <style>
         @font-face {
@@ -10,34 +10,27 @@
             src: url('intro.otf') format('opentype');
         }
 
-        html, body {
+        body {
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #000428, #004e92);
+            background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
             color: white;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .container {
-            width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
         }
 
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 2.2em;
-            margin: 0;
+            font-size: 3em; /* Увеличенный шрифт */
+            margin-bottom: 40px; /* Увеличенный отступ */
+            color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -45,16 +38,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 160px;
-            height: 160px;
+            width: 200px; /* Увеличенный размер контейнера */
+            height: 200px;
+            margin-bottom: 30px;
             border-radius: 50%;
-            background: rgba(72, 84, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
+            background: rgba(72, 84, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(72, 84, 255, 0.8);
             position: relative;
         }
 
         .multiplier {
-            font-size: 3em;
+            font-size: 3.5em; /* Увеличенный размер шрифта */
             font-weight: bold;
             color: white;
             display: none;
@@ -72,19 +66,20 @@
         }
 
         #entroImage {
-            width: 120px;
-            height: 120px;
+            width: 150px; /* Увеличенный размер SVG */
+            height: 150px;
             position: absolute;
         }
 
         .button {
-            padding: 15px 30px;
+            padding: 20px 40px; /* Увеличенные отступы */
+            margin-top: 30px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 15px;
+            border-radius: 20px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.3em;
+            font-size: 1.5em; /* Увеличенный шрифт */
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -101,9 +96,14 @@
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
+        .footer-logo {
+            margin-top: 40px;
+            width: 200px; /* Увеличенный размер лого */
+        }
+
         .background-svg {
             position: absolute;
-            bottom: 10%;
+            bottom: 5%;
             left: 0;
             width: 100%;
             height: auto;
@@ -112,35 +112,31 @@
 
         .top-image {
             position: absolute;
-            top: 5%;
+            top: 15%; /* Смещено немного выше */
             left: 50%;
             transform: translateX(-50%);
-            width: 1500px;
+            width: 1600px; /* Увеличенный размер верхнего изображения */
             height: auto;
             z-index: -1;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Верхнее изображение -->
-        <img src="LJstars.png" alt="LJ Stars" class="top-image">
+    <!-- Верхнее изображение -->
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-        <!-- Заголовок -->
-        <h1>Lucky Jet Signals</h1>
+    <!-- Заголовок -->
+    <h1>Lucky Jet Signals</h1>
 
-        <!-- Контейнер для множителя -->
-        <div class="multiplier-container">
-            <img src="entro.svg" alt="Загрузка" id="entroImage">
-            <div class="multiplier" id="multiplier">x0.00</div>
-        </div>
-
-        <!-- Кнопки -->
-        <div>
-            <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
-            <button class="button" onclick="window.location.href='/menu.html'">Вернуться в меню</button>
-        </div>
+    <!-- Контейнер для множителя -->
+    <div class="multiplier-container">
+        <img src="entro.svg" alt="Загрузка" id="entroImage">
+        <div class="multiplier" id="multiplier">x0.00</div>
     </div>
+
+    <!-- Кнопки -->
+    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button class="button" onclick="window.location.href='../menu.html'">Вернуться в меню</button>
 
     <!-- Фоновая анимация -->
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
@@ -150,21 +146,29 @@
         const entroImage = document.getElementById('entroImage');
         const signalButton = document.getElementById('signalButton');
 
+        // Функция генерации множителя с анимацией
         function generateMultiplier() {
             signalButton.disabled = true;
+
+            // Скрыть множитель, показать анимацию загрузки
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
 
             setTimeout(() => {
+                // Скрыть анимацию, показать сгенерированный множитель с анимацией
                 entroImage.style.display = 'none';
+
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
                 multiplierElement.textContent = `x${randomMultiplier}`;
                 multiplierElement.style.display = 'block';
                 multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
+
+                // Включить кнопку после выполнения
                 signalButton.disabled = false;
-            }, 4000);
+            }, 4000); // Задержка в 4 секунды
         }
 
+        // При загрузке страницы
         window.onload = () => {
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
