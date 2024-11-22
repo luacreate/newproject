@@ -71,9 +71,9 @@
             position: absolute;
         }
 
-        button {
+        .button {
             padding: 15px 30px;
-            margin-top: 30px; /* Опущен немного ниже */
+            margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
@@ -86,7 +86,12 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        button:hover {
+        .button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .button:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
@@ -96,18 +101,29 @@
             width: 150px;
         }
 
-        /* Фон animot.svg */
         .background-svg {
             position: absolute;
-            bottom: 0;
+            bottom: 10%; /* Размещено чуть выше нижней границы */
             left: 0;
             width: 100%;
             height: auto;
-            z-index: -1; /* Чтобы SVG не перекрывал интерфейс */
+            z-index: -1;
+        }
+
+        .top-image {
+            position: absolute;
+            top: 25%; /* Размещено немного выше центра */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: auto;
         }
     </style>
 </head>
 <body>
+    <!-- Верхнее изображение -->
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
+
     <!-- Заголовок -->
     <h1>Lucky Jet Signals</h1>
 
@@ -117,11 +133,9 @@
         <div class="multiplier" id="multiplier">x0.00</div>
     </div>
 
-    <!-- Кнопка -->
-    <button onclick="generateMultiplier()">Получить сигнал</button>
-
-    <!-- Логотип -->
-    <img src="LJtext.svg" alt="Lucky Jet Text" class="footer-logo">
+    <!-- Кнопки -->
+    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
 
     <!-- Фоновая анимация -->
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
@@ -129,9 +143,13 @@
     <script>
         const multiplierElement = document.getElementById('multiplier');
         const entroImage = document.getElementById('entroImage');
+        const signalButton = document.getElementById('signalButton');
 
         // Функция генерации множителя с анимацией
         function generateMultiplier() {
+            // Отключить кнопку
+            signalButton.disabled = true;
+
             // Скрыть множитель, показать анимацию загрузки
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
@@ -144,6 +162,9 @@
                 multiplierElement.textContent = `x${randomMultiplier}`;
                 multiplierElement.style.display = 'block';
                 multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
+
+                // Включить кнопку после выполнения
+                signalButton.disabled = false;
             }, 4000); // Задержка в 4 секунды
         }
 
