@@ -138,7 +138,7 @@
 </div>
 
 <script>
-<script>
+    // Функция для открытия Lucky Jet
     function openLuckyJet() {
         // Определение устройства пользователя
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -151,12 +151,13 @@
         else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
             window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь для Android и ПК
         } 
-        // Устройство по умолчанию (ПК)
+        // Устройство по умолчанию
         else {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь для ПК по умолчанию
+            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';  // Путь по умолчанию
         }
     }
 
+    // Функция для открытия Mines
     function openMines() {
         // Определение устройства пользователя
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -169,13 +170,12 @@
         else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
             window.location.href = 'mines/mines-android-pc/index.html';  // Путь для Android и ПК
         } 
-        // Устройство по умолчанию (ПК)
+        // Устройство по умолчанию
         else {
-            window.location.href = 'mines/mines-android-pc/index.html';  // Путь для ПК по умолчанию
+            window.location.href = 'mines/mines-android-pc/index.html';  // Путь по умолчанию
         }
     }
 </script>
-
 
 </body>
 </html>
