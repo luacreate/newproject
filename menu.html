@@ -142,14 +142,16 @@
         // Определение устройства пользователя
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-        if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
-            // ПК или Android
-            window.location.href = 'mines/mines-android-pc/index.html';
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            // iOS
+        // Проверка iOS
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
             window.location.href = 'mines/mines-ios/index.html';
-        } else {
-            // По умолчанию открываем версию для ПК/Android
+        } 
+        // Проверка Android или ПК
+        else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
+            window.location.href = 'mines/mines-android-pc/index.html';
+        } 
+        // Устройство по умолчанию (ПК)
+        else {
             window.location.href = 'mines/mines-android-pc/index.html';
         }
     }
