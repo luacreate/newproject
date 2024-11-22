@@ -18,7 +18,7 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             height: 100vh;
             overflow: hidden;
@@ -29,7 +29,6 @@
         h1 {
             font-family: 'Intro', sans-serif;
             font-size: 2em;
-            margin-bottom: 30px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -40,7 +39,6 @@
             align-items: center;
             width: 150px;
             height: 150px;
-            margin-bottom: 20px;
             border-radius: 50%;
             background: rgba(72, 84, 255, 0.2);
             box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
@@ -73,7 +71,6 @@
 
         .button {
             padding: 15px 30px;
-            margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
@@ -97,7 +94,6 @@
         }
 
         .footer-logo {
-            margin-top: 30px;
             width: 150px;
         }
 
@@ -112,12 +108,28 @@
 
         .top-image {
             position: absolute;
-            top: 25%;
+            top: 5%;
             left: 50%;
             transform: translateX(-50%);
-            width: 1500px; /* Уменьшено до более подходящего размера */
+            width: 1500px;
             height: auto;
-            z-index: -1; /* Размещено позади интерфейса */
+            z-index: -1;
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -125,18 +137,22 @@
     <!-- Верхнее изображение -->
     <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-    <!-- Заголовок -->
-    <h1>Lucky Jet Signals</h1>
+    <div class="content-container">
+        <!-- Заголовок -->
+        <h1>Lucky Jet Signals</h1>
 
-    <!-- Контейнер для множителя -->
-    <div class="multiplier-container">
-        <img src="entro.svg" alt="Загрузка" id="entroImage">
-        <div class="multiplier" id="multiplier">x0.00</div>
+        <!-- Контейнер для множителя -->
+        <div class="multiplier-container">
+            <img src="entro.svg" alt="Загрузка" id="entroImage">
+            <div class="multiplier" id="multiplier">x0.00</div>
+        </div>
+
+        <!-- Кнопки -->
+        <div class="button-container">
+            <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+            <button class="button" onclick="window.location.href='/menu.html'">Вернуться в меню</button>
+        </div>
     </div>
-
-    <!-- Кнопки -->
-    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
-    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
 
     <!-- Фоновая анимация -->
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
