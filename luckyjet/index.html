@@ -3,147 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebApp Access Check</title>
+    <title>Lucky Jet Signals</title>
     <style>
         @font-face {
             font-family: 'Intro';
             src: url('intro.otf') format('opentype');
         }
+
         body {
-            font-family: 'Intro', sans-serif;
-            background-image: url('fon.jpg');
-            background-size: cover;
-            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92); /* Градиентный фон */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Intro', sans-serif;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .multiplier-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: rgba(72, 84, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
+            position: relative;
+        }
+
+        .multiplier {
+            font-size: 2.8em;
+            font-weight: bold;
             color: white;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        .button {
-            background-color: orange;
-            border: none;
-            color: white;
-            padding: 15px 25px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #e67e22;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 12px;
-            margin: 15px 0;
-            border: none;
-            border-radius: 10px;
-            outline: none;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 18px;
-        }
-        #message {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        .language-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        #appContainer {
             display: none;
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #entroImage {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Intro', sans-serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
+        }
+
+        .footer-logo {
+            margin-top: 30px;
+            width: 150px;
+        }
+
+        .background-svg {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+
+        .top-image {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1500px; /* Уменьшено до более подходящего размера */
+            height: auto;
+            z-index: -1; /* Размещено позади интерфейса */
         }
     </style>
 </head>
 <body>
-    <div class="container" id="languageSelection">
-        <h2>Выберите язык</h2>
-        <div class="language-buttons">
-            <button class="button" onclick="selectLanguage('ru')">Русский</button>
-            <button class="button" onclick="selectLanguage('kz')">Қазақша</button>
-            <button class="button" onclick="selectLanguage('uz')">O'zbekcha</button>
-        </div>
+    <!-- Верхнее изображение -->
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
+
+    <!-- Заголовок -->
+    <h1>Lucky Jet Signals</h1>
+
+    <!-- Контейнер для множителя -->
+    <div class="multiplier-container">
+        <img src="entro.svg" alt="Загрузка" id="entroImage">
+        <div class="multiplier" id="multiplier">x0.00</div>
     </div>
 
-    <div class="container" id="appContainer">
-        <h2 id="headerText">Введите ваш ID</h2>
-        <input type="text" id="userIdInput" placeholder="Ваш ID">
-        <button class="button" onclick="checkAccess()">Подключиться</button>
-        <p id="message"></p>
-    </div>
+    <!-- Кнопки -->
+    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button class="button" onclick="window.location.href='menu.html'">Вернуться в меню</button>
+
+    <!-- Фоновая анимация -->
+    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVeVytQTqzYOYqtdRbbtMH4ncfXt8gnQN2Zz9f9S3TYPCkO3PQkOR_4vYl8v7qROCY/exec';
-        let selectedLanguage;
+        const multiplierElement = document.getElementById('multiplier');
+        const entroImage = document.getElementById('entroImage');
+        const signalButton = document.getElementById('signalButton');
 
-        const translations = {
-            ru: { header: "Введите ваш ID", placeholder: "Ваш ID", button: "Подключиться", enterId: "Введите ID", accessDenied: "Доступ запрещён", error: "Ошибка при проверке ID. Попробуйте снова." },
-            kz: { header: "ID енгізіңіз", placeholder: "Сіздің ID", button: "Қосылу", enterId: "ID енгізіңіз", accessDenied: "Қол жеткізу тыйым салынған", error: "ID тексеру кезінде қате болды. Қайталап көріңіз." },
-            uz: { header: "ID kiriting", placeholder: "Sizning ID", button: "Ulanish", enterId: "ID kiriting", accessDenied: "Kirish taqiqlangan", error: "ID tekshirishda xatolik yuz berdi. Qayta urinib ko'ring." }
-        };
+        // Функция генерации множителя с анимацией
+        function generateMultiplier() {
+            signalButton.disabled = true;
 
-        function selectLanguage(language) {
-            selectedLanguage = language;
-            applyLanguage(language);
-            document.getElementById('languageSelection').style.display = 'none';
-            document.getElementById('appContainer').style.display = 'block';
+            // Скрыть множитель, показать анимацию загрузки
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
+
+            setTimeout(() => {
+                // Скрыть анимацию, показать сгенерированный множитель с анимацией
+                entroImage.style.display = 'none';
+
+                const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
+                multiplierElement.textContent = `x${randomMultiplier}`;
+                multiplierElement.style.display = 'block';
+                multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
+
+                // Включить кнопку после выполнения
+                signalButton.disabled = false;
+            }, 4000); // Задержка в 4 секунды
         }
 
-        function applyLanguage(language) {
-            const texts = translations[language];
-            document.getElementById('headerText').textContent = texts.header;
-            document.getElementById('userIdInput').placeholder = texts.placeholder;
-        }
-
-        async function checkAccess() {
-            const userId = document.getElementById('userIdInput').value;
-            const messageElem = document.getElementById('message');
-
-            if (!userId) {
-                messageElem.textContent = translations[selectedLanguage].enterId;
-                return;
-            }
-
-            try {
-                const response = await fetch(`${scriptURL}?action=get`);
-                if (!response.ok) throw new Error('Ошибка сети');
-                const users = await response.json();
-
-                const userExists = users.some(user => user.userId.toString() === userId);
-                
-                if (userExists) {
-                    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-                    const platform = (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) ? 'mines-ios' : 'mines-android-pc';
-                    window.location.href = `${platform}/${selectedLanguage}.html`;
-                } else {
-                    messageElem.textContent = translations[selectedLanguage].accessDenied;
-                }
-            } catch (error) {
-                console.error('Ошибка при проверке ID:', error);
-                messageElem.textContent = translations[selectedLanguage].error;
-            }
-        }
-
-        window.onload = function() {
-            document.getElementById('languageSelection').style.display = 'block';
-            document.getElementById('appContainer').style.display = 'none';
+        // При загрузке страницы
+        window.onload = () => {
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
         };
     </script>
 </body>
