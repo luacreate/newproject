@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebApp Access Check</title>
+    <style>
+        @font-face {
+            font-family: 'Intro';
+            src: url('intro.otf') format('opentype');
+        }
+        body {
+            font-family: 'Intro', sans-serif;
+            background-image: url('fon.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: white;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .button {
+            background-color: orange;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #e67e22;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .language-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        #appContainer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="languageSelection">
+        <h2>Выберите язык</h2>
+        <div class="language-buttons">
+            <button class="button" onclick="selectLanguage('ru')">Русский</button>
+            <button class="button" onclick="selectLanguage('kz')">Қазақша</button>
+            <button class="button" onclick="selectLanguage('uz')">O'zbekcha</button>
+        </div>
+    </div>
+
+    <div class="container" id="appContainer">
+        <h2 id="headerText">Введите ваш ID</h2>
+        <input type="text" id="userIdInput" placeholder="Ваш ID">
+        <button class="button" onclick="checkAccess()">Подключиться</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVeVytQTqzYOYqtdRbbtMH4ncfXt8gnQN2Zz9f9S3TYPCkO3PQkOR_4vYl8v7qROCY/exec';
+        let selectedLanguage;
+
+        const translations = {
+            ru: { header: "Введите ваш ID", placeholder: "Ваш ID", button: "Подключиться", enterId: "Введите ID", accessDenied: "Доступ запрещён", error: "Ошибка при проверке ID. Попробуйте снова." },
+            kz: { header: "ID енгізіңіз", placeholder: "Сіздің ID", button: "Қосылу", enterId: "ID енгізіңіз", accessDenied: "Қол жеткізу тыйым салынған", error: "ID тексеру кезінде қате болды. Қайталап көріңіз." },
+            uz: { header: "ID kiriting", placeholder: "Sizning ID", button: "Ulanish", enterId: "ID kiriting", accessDenied: "Kirish taqiqlangan", error: "ID tekshirishda xatolik yuz berdi. Qayta urinib ko'ring." }
+        };
+
+        function selectLanguage(language) {
+            selectedLanguage = language;
+            applyLanguage(language);
+            document.getElementById('languageSelection').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+        }
+
+        function applyLanguage(language) {
+            const texts = translations[language];
+            document.getElementById('headerText').textContent = texts.header;
+            document.getElementById('userIdInput').placeholder = texts.placeholder;
+        }
+
+        async function checkAccess() {
+            const userId = document.getElementById('userIdInput').value;
+            const messageElem = document.getElementById('message');
+
+            if (!userId) {
+                messageElem.textContent = translations[selectedLanguage].enterId;
+                return;
+            }
+
+            try {
+                const response = await fetch(`${scriptURL}?action=get`);
+                if (!response.ok) throw new Error('Ошибка сети');
+                const users = await response.json();
+
+                const userExists = users.some(user => user.userId.toString() === userId);
+                
+                if (userExists) {
+                    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                    const platform = (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) ? 'mines-ios' : 'mines-android-pc';
+                    window.location.href = `${platform}/${selectedLanguage}.html`;
+                } else {
+                    messageElem.textContent = translations[selectedLanguage].accessDenied;
+                }
+            } catch (error) {
+                console.error('Ошибка при проверке ID:', error);
+                messageElem.textContent = translations[selectedLanguage].error;
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('languageSelection').style.display = 'block';
+            document.getElementById('appContainer').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
