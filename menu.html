@@ -138,48 +138,35 @@
 </div>
 
 <script>
+    // Распознавание устройства при загрузке
     function detectPlatform() {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-        console.log("User-Agent:", userAgent); // Для отладки
-
-        // Проверка iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            console.log("Обнаружено устройство iOS");
             return 'ios';
-        }
-        // Проверка Android
-        if (/android/i.test(userAgent)) {
-            console.log("Обнаружено устройство Android");
+        } else if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
             return 'android-pc';
+        } else {
+            return 'android-pc'; // По умолчанию
         }
-        // Проверка Windows
-        if (/windows/i.test(userAgent) || /linux/i.test(userAgent) || /macintosh/i.test(userAgent)) {
-            console.log("Обнаружено настольное устройство (ПК)");
-            return 'android-pc';
-        }
-
-        // Устройство по умолчанию
-        console.log("Устройство не распознано, выбираем Android/ПК");
-        return 'android-pc';
     }
 
-    function openLuckyJet() {
+    // Сохранение устройства во временной памяти
+    window.onload = () => {
         const platform = detectPlatform();
-        if (platform === 'ios') {
-            window.location.href = 'luckyjet/luckyjet-ios/index.html';
-        } else {
-            window.location.href = 'luckyjet/luckyjet-android-pc/index.html';
-        }
+        sessionStorage.setItem('platform', platform);
+        console.log('Detected platform:', platform); // Для проверки
+    };
+
+    // Функции для открытия игр
+    function openLuckyJet() {
+        const platform = sessionStorage.getItem('platform') || 'android-pc';
+        window.location.href = `luckyjet/luckyjet-${platform}/index.html`;
     }
 
     function openMines() {
-        const platform = detectPlatform();
-        if (platform === 'ios') {
-            window.location.href = 'mines/mines-ios/index.html';
-        } else {
-            window.location.href = 'mines/mines-android-pc/index.html';
-        }
+        const platform = sessionStorage.getItem('platform') || 'android-pc';
+        window.location.href = `mines/mines-${platform}/index.html`;
     }
 </script>
 
