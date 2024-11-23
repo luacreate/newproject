@@ -96,35 +96,10 @@
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
-        .footer-logo {
-            margin-top: 15px;
-            width: 150px;
-        }
-
-        .background-svg {
-            position: absolute;
-            bottom: 15%;
-            left: 0;
-            width: 100%;
-            height: auto;
-            z-index: -1;
-        }
-
-        .top-image {
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: auto;
-            z-index: -1;
-        }
-
         .support {
             margin-top: 15px;
             font-size: 1em;
             color: white;
-            font-family: 'Poppins', sans-serif;
         }
 
         .support a {
@@ -152,7 +127,7 @@
     </div>
 
     <!-- Кнопки -->
-    <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+    <button id="signalButton" class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
     <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
 
     <!-- Тех.Поддержка -->
@@ -160,13 +135,38 @@
         Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
     </div>
 
-    <!-- Фоновая анимация -->
-    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
-
     <script>
-        const multiplierElement = document.getElementById('multiplier');
-        const entroImage = document.getElementById('entroImage');
-        const signalButton = document.getElementById('signalButton');
+        const multiplierElement = document.getElementById("multiplier");
+        const entroImage = document.getElementById("entroImage");
+        const signalButton = document.getElementById("signalButton");
+
+        // Функция проверки депозита и генерации сигнала
+        function checkDepositAndGenerateSignal() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                alert("Ошибка: ID пользователя не найден!");
+                return;
+            }
+
+            fetch('https://postback-server-boba.onrender.com/data')
+                .then(response => response.json())
+                .then(data => {
+                    const userEntry = data.find(entry => entry.user_id === userId);
+                    if (userEntry) {
+                        if (userEntry.amount >= 19) {
+                            generateMultiplier(); // Генерация сигнала, если депозит достаточен
+                        } else {
+                            // Перенаправление на error.html при недостаточном депозите
+                            window.location.href = 'error.html';
+                        }
+                    } else {
+                        alert("Аккаунт не найден!");
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка сервера:', error);
+                });
+        }
 
         // Функция генерации множителя с анимацией
         function generateMultiplier() {
@@ -177,7 +177,7 @@
             entroImage.style.display = 'block';
 
             setTimeout(() => {
-                // Скрыть анимацию, показать сгенерированный множитель с анимацией
+                // Скрыть анимацию, показать сгенерированный множитель
                 entroImage.style.display = 'none';
 
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
