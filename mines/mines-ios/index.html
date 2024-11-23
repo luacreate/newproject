@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Интерактивная страница</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <style>
@@ -20,13 +21,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 0;
+            font-size: 16px;
         }
 
         .main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 90%;
+            width: 95%;
+            max-width: 480px;
         }
 
         .container {
@@ -34,43 +38,55 @@
             flex-direction: column;
             align-items: center;
             background-color: #0a101e;
-            border-radius: 30px;
+            border-radius: 20px;
             padding: 20px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 0 20px 10px #ffa500;
+            width: 100%;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(5, 110px);
-            grid-template-rows: repeat(5, 110px);
-            gap: 19px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
         }
 
         .square {
             background-color: #238fa9;
-            border-radius: 10px;
+            border-radius: 6px;
             transition: background-color 0.5s ease;
+            padding-top: 100%; /* Соотношение сторон 1:1 */
+            position: relative;
+        }
+
+        .square div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         button {
-            margin-top: 25px;
-            padding: 20px 40px;
+            margin-top: 15px;
+            padding: 10px 25px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 15px;
+            border-radius: 10px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.5em;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 250px;
             width: 100%;
-            max-width: 300px;
         }
 
         button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
@@ -80,61 +96,91 @@
         }
 
         #trap-count-label {
-            margin-top: 50px;
-            font-size: 70px;
+            margin-top: 20px;
+            font-size: 24px;
             color: white;
             font-family: 'Intro', sans-serif;
             font-weight: bold;
+            text-align: center;
         }
 
         #counter-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         .count-display {
-            width: 80px;
+            width: 50px;
             text-align: center;
-            font-size: 80px;
+            font-size: 24px;
             font-family: 'Intro', sans-serif;
             color: white;
-            margin: 0 30px;
+            margin: 0 15px;
         }
 
         .icon {
             cursor: pointer;
-            width: 114px;
-            height: 114px;
+            width: 50px;
+            height: 50px;
         }
 
         #loading-text {
             cursor: default;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Intro', sans-serif;
-            font-size: 48px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
         }
 
         .support {
-            margin-top: 30px; /* Увеличен отступ */
-            font-size: 2em; /* Увеличен общий размер строки */
+            margin-top: 20px;
+            font-size: 1em;
             color: white;
             font-family: 'Poppins', sans-serif;
-            white-space: nowrap;
+            text-align: center;
         }
 
         .support a {
             color: #ff8bff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.2em;
         }
 
         .support a:hover {
             text-decoration: underline;
+        }
+
+        /* Адаптация под маленькие экраны */
+        @media screen and (max-width: 768px) {
+            .grid {
+                gap: 8px;
+            }
+
+            button {
+                font-size: 0.9em;
+                padding: 8px 20px;
+            }
+
+            #trap-count-label {
+                font-size: 20px;
+            }
+
+            .count-display {
+                font-size: 20px;
+            }
+
+            #loading-text {
+                font-size: 28px;
+            }
+
+            .support {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -161,6 +207,7 @@
     <audio id="sound-effect" src="1.mp3"></audio>
     <script>
         let count = 3;
+
         const countElement = document.getElementById('count');
         const loadingText = document.getElementById('loading-text');
 
@@ -187,26 +234,23 @@
             for (let i = 0; i < 25; i++) {
                 const square = document.createElement('div');
                 square.className = 'square';
+                square.innerHTML = '<div></div>';
                 grid.appendChild(square);
             }
         }
 
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
-            if (!userId) {
-                return;
-            }
+            if (!userId) return;
 
             fetch('https://postback-server-boba.onrender.com/data')
                 .then(response => response.json())
                 .then(data => {
                     const userEntry = data.find(entry => entry.user_id === userId);
-                    if (userEntry) {
-                        if (userEntry.amount >= 19) {
-                            getSignal();
-                        } else {
-                            showConnectingAndRedirect();
-                        }
+                    if (userEntry && userEntry.amount >= 19) {
+                        getSignal();
+                    } else {
+                        showConnectingAndRedirect();
                     }
                 })
                 .catch(error => console.error('Ошибка сервера:', error));
@@ -256,9 +300,8 @@
             }
         }
 
-        window.onload = function() {
-            createSquares();
-        };
+        window.onload = createSquares;
     </script>
 </body>
 </html>
+
