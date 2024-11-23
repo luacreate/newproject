@@ -2,9 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интерактивная страница</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <title>Lucky Jet Signals</title>
     <style>
         @font-face {
             font-family: 'Intro';
@@ -12,295 +10,141 @@
         }
 
         body {
-            background-image: url('fon.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            padding: 0;
-            font-size: 16px;
-        }
-
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 95%;
-            max-width: 480px;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #0a101e;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 0 20px 10px #ffa500;
             width: 100%;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 380px;
+        h1 {
+            font-family: 'Intro', sans-serif;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .square {
-            background-color: #238fa9;
-            border-radius: 6px;
-            transition: background-color 0.5s ease;
-            padding-top: 100%; /* Соотношение сторон 1:1 */
-            position: relative;
-        }
-
-        .square div {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 10px 25px;
+        .button {
+            padding: 15px 30px;
+            margin-top: 20px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 250px;
-            width: 100%;
+            max-width: 300px;
         }
 
-        button:hover {
-            transform: translateY(-2px);
+        .button:hover {
+            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
-        button:disabled {
-            background: gray;
-            cursor: not-allowed;
-        }
-
-        #trap-count-label {
-            margin-top: 20px;
-            font-size: 24px;
-            color: white;
-            font-family: 'Intro', sans-serif;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        #counter-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 15px 0;
-        }
-
-        .count-display {
-            width: 50px;
-            text-align: center;
-            font-size: 24px;
-            font-family: 'Intro', sans-serif;
-            color: white;
-            margin: 0 15px;
-        }
-
-        .icon {
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-        }
-
-        #loading-text {
-            cursor: default;
-            text-align: center;
-            margin-bottom: 15px;
-            font-family: 'Intro', sans-serif;
-            font-size: 32px;
-            font-weight: bold;
-            color: white;
-        }
-
         .support {
-            margin-top: 20px;
-            font-size: 1em;
+            margin-top: 30px;
+            font-size: 1.2em;
             color: white;
             font-family: 'Poppins', sans-serif;
-            text-align: center;
+            border: 2px solid #ff8bff;
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .support a {
             color: #ff8bff;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2em;
         }
 
         .support a:hover {
             text-decoration: underline;
         }
 
-        /* Адаптация под маленькие экраны */
-        @media screen and (max-width: 768px) {
-            .grid {
-                gap: 8px;
-            }
-
-            button {
-                font-size: 0.9em;
-                padding: 8px 20px;
-            }
-
-            #trap-count-label {
-                font-size: 20px;
-            }
-
-            .count-display {
-                font-size: 20px;
-            }
-
-            #loading-text {
-                font-size: 28px;
-            }
-
-            .support {
-                font-size: 0.9em;
-            }
+        #connecting-message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-family: 'Intro', sans-serif;
+            color: #ffcc00;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <h1 id="loading-text">MINES</h1>
-        <div class="container">
-            <div class="grid" id="grid">
-                <!-- Квадраты будут добавлены здесь с помощью JavaScript -->
-            </div>
-        </div>
-        <div id="trap-count-label">КОЛ-ВО ЛОВУШЕК</div>
-        <div id="counter-container">
-            <img class="control-button icon" src="minus.png" onclick="decrement()" alt="Minus">
-            <span id="count" class="count-display">3</span>
-            <img class="control-button icon" src="plus.png" onclick="increment()" alt="Plus">
-        </div>
-        <button onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
-        <button onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
+    <div class="container">
+        <h1>Lucky Jet Signals</h1>
+        <button id="signalButton" class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
+        <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
         <div class="support">
             Тех. Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
         </div>
+        <div id="connecting-message">Подключение...</div>
     </div>
-    <audio id="sound-effect" src="1.mp3"></audio>
+
     <script>
-        let count = 3;
+        const signalButton = document.getElementById("signalButton");
+        const connectingMessage = document.getElementById("connecting-message");
 
-        const countElement = document.getElementById('count');
-        const loadingText = document.getElementById('loading-text');
-
-        function increment() {
-            const validTraps = [1, 3, 5, 7];
-            let currentIndex = validTraps.indexOf(count);
-            if (currentIndex < validTraps.length - 1) {
-                count = validTraps[currentIndex + 1];
-                countElement.textContent = count;
-            }
-        }
-
-        function decrement() {
-            const validTraps = [1, 3, 5, 7];
-            let currentIndex = validTraps.indexOf(count);
-            if (currentIndex > 0) {
-                count = validTraps[currentIndex - 1];
-                countElement.textContent = count;
-            }
-        }
-
-        function createSquares() {
-            const grid = document.getElementById('grid');
-            for (let i = 0; i < 25; i++) {
-                const square = document.createElement('div');
-                square.className = 'square';
-                square.innerHTML = '<div></div>';
-                grid.appendChild(square);
-            }
-        }
-
+        // Проверка депозита и генерация сигнала
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
-            if (!userId) return;
+            if (!userId) {
+                return;
+            }
 
             fetch('https://postback-server-boba.onrender.com/data')
                 .then(response => response.json())
                 .then(data => {
                     const userEntry = data.find(entry => entry.user_id === userId);
-                    if (userEntry && userEntry.amount >= 19) {
-                        getSignal();
-                    } else {
-                        showConnectingAndRedirect();
+                    if (userEntry) {
+                        if (userEntry.amount >= 19) {
+                            generateSignal();
+                        } else {
+                            showConnectingAndRedirect();
+                        }
                     }
                 })
-                .catch(error => console.error('Ошибка сервера:', error));
+                .catch(error => {
+                    console.error('Ошибка сервера:', error);
+                });
         }
 
+        // Генерация сигнала
+        function generateSignal() {
+            signalButton.disabled = true;
+            setTimeout(() => {
+                console.log('Сигнал успешно получен!');
+                signalButton.disabled = false;
+            }, 4000); // Имитация задержки получения сигнала
+        }
+
+        // Показ сообщения "Подключение..." и редирект
         function showConnectingAndRedirect() {
-            loadingText.textContent = "Подключение...";
+            connectingMessage.style.display = "block";
             setTimeout(() => {
                 window.location.href = '/newproject/error.html';
             }, 2000);
         }
-
-        function getSignal() {
-            const squares = document.querySelectorAll('.square');
-            squares.forEach(square => {
-                square.style.backgroundColor = '#238fa9';
-                square.innerHTML = '';
-            });
-
-            let indices = new Set();
-            const cellsToOpen = squaresToOpen();
-
-            while (indices.size < cellsToOpen) {
-                indices.add(Math.floor(Math.random() * squares.length));
-            }
-
-            let delay = 0;
-            indices.forEach(index => {
-                setTimeout(() => {
-                    const audio = new Audio('1.mp3');
-                    audio.play();
-                    const square = squares[index];
-                    square.style.backgroundColor = '#0a101e';
-                    square.innerHTML = '<div style="width: 100%; height: 100%; background: url(\'star.svg\') center/contain no-repeat;"></div>';
-                }, delay);
-                delay += 1000;
-            });
-        }
-
-        function squaresToOpen() {
-            switch (count) {
-                case 1: return 10;
-                case 3: return 5;
-                case 5: return 4;
-                case 7: return 3;
-                default: return 3;
-            }
-        }
-
-        window.onload = createSquares;
     </script>
 </body>
 </html>
