@@ -18,12 +18,20 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Сместить вверх */
             align-items: center;
             height: 100vh;
             overflow: hidden;
             text-align: center;
             position: relative;
+        }
+
+        .container {
+            margin-top: 10vh; /* Отступ сверху для центрирования интерфейса */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         h1 {
@@ -111,36 +119,53 @@
         .support a:hover {
             text-decoration: underline;
         }
+
+        .background-svg {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+
+        .top-image {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: auto;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
-    <!-- Верхнее изображение -->
     <img src="LJstars.png" alt="LJ Stars" class="top-image">
 
-    <!-- Заголовок -->
-    <h1>Lucky Jet Signals</h1>
+    <div class="container">
+        <h1>Lucky Jet Signals</h1>
 
-    <!-- Контейнер для множителя -->
-    <div class="multiplier-container">
-        <img src="entro.svg" alt="Загрузка" id="entroImage">
-        <div class="multiplier" id="multiplier">x0.00</div>
+        <div class="multiplier-container">
+            <img src="entro.svg" alt="Загрузка" id="entroImage">
+            <div class="multiplier" id="multiplier">x0.00</div>
+        </div>
+
+        <button id="signalButton" class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
+        <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
+
+        <div class="support">
+            Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
+        </div>
     </div>
 
-    <!-- Кнопки -->
-    <button id="signalButton" class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
-    <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
-
-    <!-- Тех.Поддержка -->
-    <div class="support">
-        Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
-    </div>
+    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
 
     <script>
         const multiplierElement = document.getElementById("multiplier");
         const entroImage = document.getElementById("entroImage");
         const signalButton = document.getElementById("signalButton");
 
-        // Функция проверки депозита и генерации сигнала
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
             if (!userId) {
@@ -154,9 +179,8 @@
                     const userEntry = data.find(entry => entry.user_id === userId);
                     if (userEntry) {
                         if (userEntry.amount >= 19) {
-                            generateMultiplier(); // Генерация сигнала, если депозит достаточен
+                            generateMultiplier();
                         } else {
-                            // Перенаправление на error.html при недостаточном депозите
                             window.location.href = 'error.html';
                         }
                     } else {
@@ -168,29 +192,21 @@
                 });
         }
 
-        // Функция генерации множителя с анимацией
         function generateMultiplier() {
             signalButton.disabled = true;
-
-            // Скрыть множитель, показать анимацию загрузки
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
 
             setTimeout(() => {
-                // Скрыть анимацию, показать сгенерированный множитель
                 entroImage.style.display = 'none';
-
                 const randomMultiplier = (Math.random() * 9 + 1).toFixed(2);
                 multiplierElement.textContent = `x${randomMultiplier}`;
                 multiplierElement.style.display = 'block';
                 multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
-
-                // Включить кнопку после выполнения
                 signalButton.disabled = false;
-            }, 4000); // Задержка в 4 секунды
+            }, 4000);
         }
 
-        // При загрузке страницы
         window.onload = () => {
             multiplierElement.style.display = 'none';
             entroImage.style.display = 'block';
