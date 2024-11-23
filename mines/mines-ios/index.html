@@ -41,7 +41,7 @@
 
         h1 {
             font-family: 'Intro', sans-serif;
-            font-size: 4em;
+            font-size: 8em;
             margin-bottom: 20px;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -62,72 +62,88 @@
 
         .button {
             margin-top: 15px;
-            padding: 15px 60px;
+            padding: 33px 135px; /* Увеличенная высота и ширина кнопки "Получить сигнал" */
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.5em;
+            font-size: 2.7em; /* Увеличен размер шрифта */
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
             text-align: center;
         }
 
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
+        .menu-button {
+            margin-top: 15px;
+            padding: 27px 108px; /* Увеличенная высота и ширина кнопки "Вернуться в меню" */
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Intro', sans-serif;
+            font-size: 2.25em; /* Увеличен размер шрифта */
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
-        .button:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 8px rgba(72, 84, 255, 0.5);
+        .button:hover, .menu-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 9px 30px rgba(72, 84, 255, 0.5);
+        }
+
+        .button:active, .menu-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 10px rgba(72, 84, 255, 0.5);
         }
 
         #counter-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0;
+            margin: 30px 0;
         }
 
         .control-button {
-            padding: 15px 30px;
+            padding: 22px 45px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 10px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.5em;
+            font-size: 2.25em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
         }
 
         .control-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 9px 30px rgba(72, 84, 255, 0.5);
         }
 
         .count-display {
-            width: 100px;
+            width: 150px;
             text-align: center;
-            font-size: 2em;
+            font-size: 3em;
             color: white;
             font-family: 'Intro', sans-serif;
-            margin: 0 20px;
+            margin: 0 30px;
         }
 
         #support-label {
-            margin-top: 20px;
-            font-size: 1.2em;
+            margin-top: 30px;
+            font-size: 2.25em; /* Увеличен размер текста */
             color: white;
             font-family: 'Intro', sans-serif;
             text-align: center;
-            padding: 10px;
+            padding: 18px; /* Увеличены отступы */
             border: 2px solid white;
             border-radius: 10px;
         }
@@ -156,7 +172,7 @@
             <button class="control-button" onclick="increment()">+</button>
         </div>
         <button class="button" onclick="getSignal()">Получить сигнал</button>
-        <button class="button" onclick="location.href='menu.html'">Вернуться в меню</button>
+        <button class="menu-button" onclick="location.href='menu.html'">Вернуться в меню</button>
         <div id="support-label">
             Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать</a>
         </div>
