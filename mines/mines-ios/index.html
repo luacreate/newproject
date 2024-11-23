@@ -35,7 +35,7 @@
             align-items: center;
             background-color: #0a101e;
             border-radius: 30px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 0 20px 10px #ffa500;
         }
 
@@ -53,25 +53,25 @@
         }
 
         button {
-            margin-top: 30px;
-            padding: 25px 50px; /* Увеличены отступы */
+            margin-top: 25px;
+            padding: 20px 40px; /* Увеличен размер кнопок */
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 25px; /* Увеличен радиус */
+            border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 2em; /* Увеличен размер шрифта */
+            font-size: 1.5em; /* Увеличен размер шрифта кнопок */
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 400px; /* Увеличена ширина */
+            max-width: 300px;
         }
 
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(72, 84, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
         button:disabled {
@@ -81,7 +81,7 @@
 
         #trap-count-label {
             margin-top: 50px;
-            font-size: 80px;
+            font-size: 70px;
             color: white;
             font-family: 'Intro', sans-serif;
             font-weight: bold;
@@ -91,47 +91,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .count-display {
-            width: 100px;
+            width: 80px;
             text-align: center;
-            font-size: 90px;
+            font-size: 80px;
             font-family: 'Intro', sans-serif;
             color: white;
-            margin: 0 40px;
+            margin: 0 30px;
         }
 
         .icon {
             cursor: pointer;
-            width: 120px;
-            height: 120px;
+            width: 114px;
+            height: 114px;
         }
 
         #loading-text {
             cursor: default;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-family: 'Intro', sans-serif;
-            font-size: 60px;
+            font-size: 48px;
             font-weight: bold;
             color: white;
         }
 
         .support {
-            margin-top: 40px; /* Увеличено расстояние */
-            font-size: 2em; /* Увеличен размер шрифта */
+            margin-top: 20px; /* Увеличен отступ для читаемости */
+            font-size: 1.5em; /* Увеличен размер текста техподдержки */
             color: white;
             font-family: 'Poppins', sans-serif;
-            text-align: center;
+            white-space: nowrap; /* Запрещен перенос текста */
         }
 
         .support a {
             color: #ff8bff;
             text-decoration: none;
             font-weight: bold;
-            font-size: 2em; /* Увеличен размер шрифта ссылки */
         }
 
         .support a:hover {
