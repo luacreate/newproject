@@ -112,8 +112,11 @@
         #loading-text {
             cursor: default;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 20px;
             font-family: 'Intro', sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
         }
 
         .support {
@@ -136,9 +139,7 @@
 </head>
 <body>
     <div class="main-container">
-         <h1 id="loading-text">
-        <span>M</span><span>I</span><span>N</span><span>E</span><span>S</span>
-        </h1>
+        <h1 id="loading-text">MINES</h1>
         <div class="container">
             <div class="grid" id="grid">
                 <!-- Квадраты будут добавлены здесь с помощью JavaScript -->
@@ -213,11 +214,19 @@
                     if (userEntry.amount >= 19) {
                         getSignal();
                     } else {
-                        window.location.href = '/newproject/error.html';
+                        showConnectingAndRedirect();
                     }
                 }
             })
             .catch(error => console.error('Ошибка сервера:', error));
+    }
+
+    function showConnectingAndRedirect() {
+        const loadingText = document.getElementById('loading-text');
+        loadingText.textContent = "Подключение...";
+        setTimeout(() => {
+            window.location.href = '/newproject/error.html';
+        }, 2000);
     }
 
     function getSignal() {
@@ -253,3 +262,4 @@
 </script>
 </body>
 </html>
+
