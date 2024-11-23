@@ -150,13 +150,13 @@
             <span id="count" class="count-display">3</span>
             <img class="control-button icon" src="plus.png" onclick="increment()" alt="Plus">
         </div>
-        <button onclick="getSignal()">Получить сигнал</button>
+        <button onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
         <button onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
         <div class="support">
             Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
         </div>
     </div>
-    <audio id="sound-effect" src="1.mp3"></audio> <!-- Звуковой эффект для воспроизведения -->
+    <audio id="sound-effect" src="1.mp3"></audio>
     <script>
         let count = 3; // Начальное количество ловушек
         const countElement = document.getElementById('count');
@@ -197,6 +197,27 @@
                 case 7: return 3;
                 default: return 3;
             }
+        }
+
+        function checkDepositAndGenerateSignal() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                return;
+            }
+
+            fetch('https://postback-server-boba.onrender.com/data')
+                .then(response => response.json())
+                .then(data => {
+                    const userEntry = data.find(entry => entry.user_id === userId);
+                    if (userEntry) {
+                        if (userEntry.amount >= 19) {
+                            getSignal();
+                        } else {
+                            window.location.href = '/newproject/error.html';
+                        }
+                    }
+                })
+                .catch(error => console.error('Ошибка сервера:', error));
         }
 
         function getSignal() {
