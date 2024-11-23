@@ -22,15 +22,15 @@
             height: 100vh;
             margin: 0;
             padding: 0;
+            font-size: 16px;
         }
 
         .main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 90%;
-            max-width: 400px;
-            padding: 10px;
+            width: 95%;
+            max-width: 480px;
         }
 
         .container {
@@ -38,52 +38,55 @@
             flex-direction: column;
             align-items: center;
             background-color: #0a101e;
-            border-radius: 30px;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 0 20px 10px #ffa500;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1), 0 0 20px 10px #ffa500;
             width: 100%;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            grid-gap: 10px;
-            margin: 10px 0;
+            gap: 10px;
             width: 100%;
+            max-width: 380px;
         }
 
         .square {
             background-color: #238fa9;
-            border-radius: 10px;
-            padding-bottom: 100%; /* Соотношение 1:1 для адаптивности */
+            border-radius: 6px;
+            transition: background-color 0.5s ease;
+            padding-top: 100%; /* Соотношение сторон 1:1 */
             position: relative;
         }
 
-        .square::after {
-            content: '';
-            display: block;
-            padding-bottom: 100%; /* Соотношение 1:1 */
+        .square div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         button {
             margin-top: 15px;
-            padding: 12px 20px;
+            padding: 10px 25px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 15px;
+            border-radius: 10px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 250px;
             width: 100%;
-            max-width: 300px;
         }
 
         button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
         }
 
@@ -94,41 +97,41 @@
 
         #trap-count-label {
             margin-top: 20px;
-            font-size: 1.5em;
+            font-size: 24px;
             color: white;
             font-family: 'Intro', sans-serif;
             font-weight: bold;
+            text-align: center;
         }
 
         #counter-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
-            width: 100%;
+            margin: 15px 0;
         }
 
         .count-display {
+            width: 50px;
             text-align: center;
-            font-size: 2em;
+            font-size: 24px;
             font-family: 'Intro', sans-serif;
             color: white;
-            margin: 0 20px;
-            flex: 1;
+            margin: 0 15px;
         }
 
         .icon {
             cursor: pointer;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
         }
 
         #loading-text {
             cursor: default;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Intro', sans-serif;
-            font-size: 2em;
+            font-size: 32px;
             font-weight: bold;
             color: white;
         }
@@ -145,34 +148,34 @@
             color: #ff8bff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.2em;
         }
 
         .support a:hover {
             text-decoration: underline;
         }
 
-        /* Медиазапросы для маленьких экранов */
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
+        /* Адаптация под маленькие экраны */
+        @media screen and (max-width: 768px) {
+            .grid {
+                gap: 8px;
             }
 
             button {
-                font-size: 1em;
-                padding: 10px 15px;
-            }
-
-            .count-display {
-                font-size: 1.5em;
+                font-size: 0.9em;
+                padding: 8px 20px;
             }
 
             #trap-count-label {
-                font-size: 1.2em;
+                font-size: 20px;
             }
 
-            .icon {
-                width: 50px;
-                height: 50px;
+            .count-display {
+                font-size: 20px;
+            }
+
+            #loading-text {
+                font-size: 28px;
             }
 
             .support {
@@ -186,7 +189,7 @@
         <h1 id="loading-text">MINES</h1>
         <div class="container">
             <div class="grid" id="grid">
-                <!-- Квадраты будут добавлены с помощью JavaScript -->
+                <!-- Квадраты будут добавлены здесь с помощью JavaScript -->
             </div>
         </div>
         <div id="trap-count-label">КОЛ-ВО ЛОВУШЕК</div>
@@ -203,8 +206,8 @@
     </div>
     <audio id="sound-effect" src="1.mp3"></audio>
     <script>
-        // Весь ваш функциональный JavaScript остался без изменений
         let count = 3;
+
         const countElement = document.getElementById('count');
         const loadingText = document.getElementById('loading-text');
 
@@ -231,6 +234,7 @@
             for (let i = 0; i < 25; i++) {
                 const square = document.createElement('div');
                 square.className = 'square';
+                square.innerHTML = '<div></div>';
                 grid.appendChild(square);
             }
         }
@@ -238,6 +242,7 @@
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
             if (!userId) return;
+
             fetch('https://postback-server-boba.onrender.com/data')
                 .then(response => response.json())
                 .then(data => {
