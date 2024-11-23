@@ -138,6 +138,14 @@
             height: auto;
             z-index: -1;
         }
+
+        #connecting-message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-family: 'Intro', sans-serif;
+            color: #ffcc00;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -157,6 +165,8 @@
         <div class="support">
             Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
         </div>
+
+        <div id="connecting-message">Подключение...</div>
     </div>
 
     <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
@@ -165,6 +175,7 @@
         const multiplierElement = document.getElementById("multiplier");
         const entroImage = document.getElementById("entroImage");
         const signalButton = document.getElementById("signalButton");
+        const connectingMessage = document.getElementById("connecting-message");
 
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
@@ -180,7 +191,7 @@
                         if (userEntry.amount >= 19) {
                             generateMultiplier();
                         } else {
-                            window.location.href = '/newproject/error.html';
+                            showConnectingAndRedirect();
                         }
                     }
                 })
@@ -202,6 +213,13 @@
                 multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
                 signalButton.disabled = false;
             }, 4000);
+        }
+
+        function showConnectingAndRedirect() {
+            connectingMessage.style.display = "block";
+            setTimeout(() => {
+                window.location.href = '/newproject/error.html';
+            }, 2000);
         }
 
         window.onload = () => {
