@@ -79,6 +79,18 @@
             font-size: 1.5em;
             font-weight: bold;
         }
+        .links {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+        .links a {
+            color: #FF8BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -87,6 +99,10 @@
         <input type="text" id="userId" placeholder="Введите ID">
         <button onclick="checkAccess()">Подключиться</button>
         <div id="result"></div>
+        <div class="links">
+            <a href="instruction.html">Инструкция</a> | 
+            <a href="https://t.me/redsoft_support" target="_blank">Тех. Поддержка</a>
+        </div>
     </div>
 
     <script>
