@@ -54,19 +54,19 @@
 
         button {
             margin-top: 25px;
-            padding: 15px 30px;
+            padding: 20px 40px; /* Увеличены отступы */
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
-            border-radius: 15px;
+            border-radius: 20px; /* Увеличен радиус */
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 1.2em;
+            font-size: 1.5em; /* Увеличен размер шрифта */
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 300px;
+            max-width: 350px; /* Увеличена ширина */
         }
 
         button:hover {
@@ -120,8 +120,8 @@
         }
 
         .support {
-            margin-top: 15px;
-            font-size: 1em;
+            margin-top: 25px; /* Увеличено расстояние */
+            font-size: 1.5em; /* Увеличен размер шрифта */
             color: white;
             font-family: 'Poppins', sans-serif;
         }
@@ -130,6 +130,7 @@
             color: #ff8bff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.5em; /* Увеличен размер шрифта ссылки */
         }
 
         .support a:hover {
@@ -243,6 +244,16 @@
                 }, delay);
                 delay += 1000;
             });
+        }
+
+        function squaresToOpen() {
+            switch (count) {
+                case 1: return 10;
+                case 3: return 5;
+                case 5: return 4;
+                case 7: return 3;
+                default: return 3;
+            }
         }
 
         window.onload = function() {
