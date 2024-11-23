@@ -18,7 +18,7 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Сместить вверх */
+            justify-content: flex-start;
             align-items: center;
             height: 100vh;
             overflow: hidden;
@@ -27,7 +27,7 @@
         }
 
         .container {
-            margin-top: 10vh; /* Отступ сверху для центрирования интерфейса */
+            margin-top: 10vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -169,7 +169,7 @@
         function checkDepositAndGenerateSignal() {
             const userId = localStorage.getItem('userId');
             if (!userId) {
-                alert("Ошибка: ID пользователя не найден!");
+                // Не выполнять ничего в случае отсутствия userId
                 return;
             }
 
@@ -184,7 +184,7 @@
                             window.location.href = 'error.html';
                         }
                     } else {
-                        alert("Аккаунт не найден!");
+                        // Не выполнять ничего в случае отсутствия данных пользователя
                     }
                 })
                 .catch(error => {
