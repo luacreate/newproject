@@ -154,7 +154,7 @@
         <button onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
         <button onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
         <div class="support">
-            Тех.Поддержка: <a href="https://t.me/" target="_blank">Написать в Telegram</a>
+            Тех.Поддержка: <a href="https://t.me/ЗАПОЛНИТЬ" target="_blank">Написать в Telegram</a>
         </div>
     </div>
     <audio id="sound-effect" src="1.mp3"></audio>
@@ -211,7 +211,7 @@
             .then(data => {
                 const userEntry = data.find(entry => entry.user_id === userId);
                 if (userEntry) {
-                    if (userEntry.amount >= 19) {
+                    if (userEntry.amount >= 950) {
                         getSignal();
                     } else {
                         showConnectingAndRedirect();
