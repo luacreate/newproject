@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Jet Signals</title>
+    <style>
+        @font-face {
+            font-family: 'Intro';
+            src: url('intro.otf') format('opentype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            margin-top: 15vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Intro', sans-serif;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .multiplier-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: rgba(72, 84, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(72, 84, 255, 0.6);
+            position: relative;
+        }
+
+        .multiplier {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: white;
+            display: none;
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #entroImage {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Intro', sans-serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(72, 84, 255, 0.5);
+        }
+
+        .support {
+            margin-top: 15px;
+            font-size: 1em;
+            color: white;
+        }
+
+        .support a {
+            color: #ff8bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .support a:hover {
+            text-decoration: underline;
+        }
+
+        .background-svg {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+
+        .top-image {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: auto;
+            z-index: -1;
+        }
+
+        #multiplierMenu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        #multiplierMenu label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #multiplierMenu input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <img src="LJstars.png" alt="LJ Stars" class="top-image">
+
+    <div class="container">
+        <h1>Lucky Jet Signals</h1>
+
+        <div class="multiplier-container">
+            <img src="entro.svg" alt="Загрузка" id="entroImage">
+            <div class="multiplier" id="multiplier">x0.00</div>
+        </div>
+
+        <button id="signalButton" class="button" onclick="generateMultiplier()">Получить сигнал</button>
+        <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
+
+        <div class="support">
+            Тех.Поддержка: <a href="#" onclick="openMultiplierMenu()">Настройка множителей</a>
+        </div>
+    </div>
+
+    <img src="animot.svg" alt="Фоновая анимация" class="background-svg">
+
+    <!-- Модальное окно для настройки множителей -->
+    <div id="multiplierMenu">
+        <h2>Настройка множителей</h2>
+        <label for="multiplier1">Множитель 1:</label>
+        <input type="number" id="multiplier1" min="1" max="10" step="0.01">
+        <label for="multiplier2">Множитель 2:</label>
+        <input type="number" id="multiplier2" min="1" max="10" step="0.01">
+        <label for="multiplier3">Множитель 3:</label>
+        <input type="number" id="multiplier3" min="1" max="10" step="0.01">
+        <button class="button" onclick="saveMultipliers()">Сохранить</button>
+        <button class="button" onclick="closeMultiplierMenu()">Закрыть</button>
+    </div>
+
+    <script>
+        const multiplierElement = document.getElementById("multiplier");
+        const entroImage = document.getElementById("entroImage");
+        const signalButton = document.getElementById("signalButton");
+        let currentMultiplierIndex = 0; // Текущий индекс множителя
+
+        function generateMultiplier() {
+            const customMultipliers = JSON.parse(localStorage.getItem('customMultipliers')) || [];
+            signalButton.disabled = true;
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
+
+            setTimeout(() => {
+                entroImage.style.display = 'none';
+                let chosenMultiplier;
+
+                if (customMultipliers.length > 0) {
+                    chosenMultiplier = customMultipliers[currentMultiplierIndex];
+                    currentMultiplierIndex = (currentMultiplierIndex + 1) % customMultipliers.length;
+                } else {
+                    chosenMultiplier = (Math.random() * 9 + 1).toFixed(2);
+                }
+
+                multiplierElement.textContent = `x${chosenMultiplier}`;
+                multiplierElement.style.display = 'block';
+                multiplierElement.style.animation = 'fadeInScale 0.5s ease-in-out forwards';
+                signalButton.disabled = false;
+            }, 4000);
+        }
+
+        function openMultiplierMenu() {
+            document.getElementById('multiplierMenu').style.display = 'block';
+        }
+
+        function closeMultiplierMenu() {
+            document.getElementById('multiplierMenu').style.display = 'none';
+        }
+
+        function saveMultipliers() {
+            const multiplier1 = parseFloat(document.getElementById('multiplier1').value);
+            const multiplier2 = parseFloat(document.getElementById('multiplier2').value);
+            const multiplier3 = parseFloat(document.getElementById('multiplier3').value);
+
+            if (!isNaN(multiplier1) && !isNaN(multiplier2) && !isNaN(multiplier3)) {
+                localStorage.setItem('customMultipliers', JSON.stringify([multiplier1, multiplier2, multiplier3]));
+                alert('Множители сохранены!');
+                closeMultiplierMenu();
+            } else {
+                alert('Введите корректные значения множителей!');
+            }
+        }
+
+        window.onload = () => {
+            multiplierElement.style.display = 'none';
+            entroImage.style.display = 'block';
+        };
+    </script>
+</body>
+</html>
