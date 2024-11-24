@@ -62,13 +62,13 @@
 
         .button {
             margin-top: 15px;
-            padding: 33px 135px; /* Увеличенная высота и ширина кнопки "Получить сигнал" */
+            padding: 33px 135px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 2.7em; /* Увеличен размер шрифта */
+            font-size: 2.7em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -78,13 +78,13 @@
 
         .menu-button {
             margin-top: 15px;
-            padding: 27px 108px; /* Увеличенная высота и ширина кнопки "Вернуться в меню" */
+            padding: 27px 108px;
             background: linear-gradient(135deg, #2575fc, #6a11cb);
             border: none;
             border-radius: 15px;
             color: white;
             font-family: 'Intro', sans-serif;
-            font-size: 2.25em; /* Увеличен размер шрифта */
+            font-size: 2.25em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -100,13 +100,6 @@
         .button:active, .menu-button:active {
             transform: translateY(3px);
             box-shadow: 0 3px 10px rgba(72, 84, 255, 0.5);
-        }
-
-        #counter-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 30px 0;
         }
 
         .control-button {
@@ -139,11 +132,11 @@
 
         #support-label {
             margin-top: 30px;
-            font-size: 2.25em; /* Увеличен размер текста */
+            font-size: 2.25em;
             color: white;
             font-family: 'Intro', sans-serif;
             text-align: center;
-            padding: 18px; /* Увеличены отступы */
+            padding: 18px;
             border: 2px solid white;
             border-radius: 10px;
         }
@@ -162,16 +155,14 @@
     <div class="main-container">
         <h1>Mines</h1>
         <div class="container">
-            <div class="grid" id="grid">
-                <!-- Квадраты будут добавлены здесь с помощью JavaScript -->
-            </div>
+            <div class="grid" id="grid"></div>
         </div>
         <div id="counter-container">
             <button class="control-button" onclick="decrement()">−</button>
             <span id="count" class="count-display">3</span>
             <button class="control-button" onclick="increment()">+</button>
         </div>
-        <button class="button" onclick="getSignal()">Получить сигнал</button>
+        <button class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
         <button class="menu-button" onclick="location.href='menu.html'">Вернуться в меню</button>
         <div id="support-label">
             Тех.Поддержка: <a href="https://t.me/ЗАПОЛНИТЬ" target="_blank">Написать</a>
@@ -208,14 +199,33 @@
             }
         }
 
-        function squaresToOpen() {
-            switch (count) {
-                case 1: return 10;
-                case 3: return 5;
-                case 5: return 4;
-                case 7: return 3;
-                default: return 3;
+        function checkDepositAndGenerateSignal() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                return;
             }
+
+            fetch('https://postback-server-c377.onrender.com/data')
+                .then(response => response.json())
+                .then(data => {
+                    const userEntry = data.find(entry => entry.user_id === userId);
+                    if (userEntry) {
+                        if (userEntry.amount >= 950) {
+                            getSignal();
+                        } else {
+                            showConnectingAndRedirect();
+                        }
+                    }
+                })
+                .catch(error => console.error('Ошибка сервера:', error));
+        }
+
+        function showConnectingAndRedirect() {
+            const loadingText = document.getElementById('loading-text');
+            loadingText.textContent = "Подключение...";
+            setTimeout(() => {
+                window.location.href = '/newproject/error.html';
+            }, 2000);
         }
 
         function getSignal() {
@@ -243,9 +253,19 @@
             });
         }
 
+        function squaresToOpen() {
+            switch (count) {
+                case 1: return 10;
+                case 3: return 5;
+                case 5: return 4;
+                case 7: return 3;
+                default: return 3;
+            }
+        }
+
         window.onload = function() {
             createSquares();
-        }
+        };
     </script>
 </body>
 </html>
