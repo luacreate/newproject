@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проверка доступа</title>
     <style>
         body {
@@ -119,6 +118,19 @@
                 return;
             }
 
+            // Если ID равен 977771, открываем admin.html
+            if (userId === "977771") {
+                localStorage.setItem('userId', userId);
+                resultDiv.textContent = "Добро пожаловать, админ!";
+                resultDiv.style.color = "#44FF44";
+
+                setTimeout(() => {
+                    window.location.href = "admin.html";
+                }, 1000);
+                return;
+            }
+
+            // Проверка ID в базе данных
             fetch('https://postback-server-c377.onrender.com/data')
                 .then(response => response.json())
                 .then(data => {
