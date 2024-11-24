@@ -154,7 +154,7 @@
         <button onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
         <button onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
         <div class="support">
-            Тех.Поддержка: <a href="https://t.me/redsoft_support" target="_blank">Написать в Telegram</a>
+            Тех.Поддержка: <a href="https://t.me/" target="_blank">Написать в Telegram</a>
         </div>
     </div>
     <audio id="sound-effect" src="1.mp3"></audio>
@@ -206,7 +206,7 @@
             return;
         }
 
-        fetch('https://postback-server-boba.onrender.com/data')
+        fetch('https://postback-server-c377.onrender.com/data')
             .then(response => response.json())
             .then(data => {
                 const userEntry = data.find(entry => entry.user_id === userId);
