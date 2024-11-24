@@ -188,7 +188,7 @@
                 .then(data => {
                     const userEntry = data.find(entry => entry.user_id === userId);
                     if (userEntry) {
-                        if (userEntry.amount >= 19) {
+                        if (userEntry.amount >= 950) {
                             generateMultiplier();
                         } else {
                             showConnectingAndRedirect();
