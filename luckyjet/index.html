@@ -160,7 +160,7 @@
         </div>
 
         <button id="signalButton" class="button" onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
-        <button class="button" onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
+        <button class="button" onclick="window.location.href='/menu.html'">Вернуться в меню</button>
 
         <div class="support">
             Тех.Поддержка: <a href="https://t.me/wotbotmanager" target="_blank">Написать в Telegram</a>
@@ -218,7 +218,7 @@
         function showConnectingAndRedirect() {
             connectingMessage.style.display = "block";
             setTimeout(() => {
-                window.location.href = '/newproject/error.html';
+                window.location.href = '/error.html';
             }, 2000);
         }
 
