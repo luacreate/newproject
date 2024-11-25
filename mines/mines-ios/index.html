@@ -199,26 +199,55 @@
             }
         }
 
-        function checkDepositAndGenerateSignal() {
-            const userId = localStorage.getItem('userId');
-            if (!userId) {
-                return;
-            }
+function checkDepositAndGenerateSignal() {
+    const userId = localStorage.getItem('userId');
 
-            fetch('https://postback-server-c377.onrender.com/data')
-                .then(response => response.json())
-                .then(data => {
-                    const userEntry = data.find(entry => entry.user_id === userId);
-                    if (userEntry) {
-                        if (userEntry.amount >= 950) {
-                            getSignal();
-                        } else {
-                            showConnectingAndRedirect();
-                        }
-                    }
-                })
-                .catch(error => console.error('Ошибка сервера:', error));
-        }
+    if (!userId) {
+        // Если ID отсутствует, ничего не делаем.
+        return;
+    }
+
+    fetch('https://postback-server-c377.onrender.com/data')
+        .then(response => response.json())
+        .then(data => {
+            const userEntry = data.find(entry => entry.user_id === userId);
+            if (userEntry) {
+                if (userEntry.amount >= 950) {
+                    getSignal();
+                } else {
+                    showConnectingAndRedirect();
+                }
+            } else {
+                showConnectingAndRedirect(); // Если ID не найден, показываем "Подключение..." и переадресуем.
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка сервера:', error);
+            showConnectingAndRedirect(); // Если ошибка сервера, также показываем "Подключение..." и переадресуем.
+        });
+}
+
+function showConnectingAndRedirect() {
+    // Создаём или находим элемент для сообщения
+    let messageElement = document.getElementById('connecting-message');
+    if (!messageElement) {
+        messageElement = document.createElement('div');
+        messageElement.id = 'connecting-message';
+        messageElement.style.color = 'white';
+        messageElement.style.fontFamily = 'Intro, sans-serif';
+        messageElement.style.fontSize = '2em';
+        messageElement.style.marginTop = '15px';
+        messageElement.style.textAlign = 'center';
+        document.querySelector('.main-container').appendChild(messageElement);
+    }
+
+    // Обновляем текст и выполняем переадресацию
+    messageElement.textContent = 'Подключение...';
+    setTimeout(() => {
+        window.location.href = '/error.html';
+    }, 2000);
+}
+
 
         function showConnectingAndRedirect() {
             const loadingText = document.getElementById('loading-text');
