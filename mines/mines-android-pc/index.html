@@ -152,7 +152,7 @@
             <img class="control-button icon" src="plus.png" onclick="increment()" alt="Plus">
         </div>
         <button onclick="checkDepositAndGenerateSignal()">Получить сигнал</button>
-        <button onclick="window.location.href='/newproject/menu.html'">Вернуться в меню</button>
+        <button onclick="window.location.href='/menu.html'">Вернуться в меню</button>
         <div class="support">
             Тех.Поддержка: <a href="https://t.me/wotbotmanager" target="_blank">Написать в Telegram</a>
         </div>
@@ -225,7 +225,7 @@
         const loadingText = document.getElementById('loading-text');
         loadingText.textContent = "Подключение...";
         setTimeout(() => {
-            window.location.href = '/newproject/error.html';
+            window.location.href = '/error.html';
         }, 2000);
     }
 
